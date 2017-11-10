@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:background="@color/window_bg"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:title="@string/title_message">
+    </android.support.v7.widget.Toolbar>
+    <ScrollView
+        android:scrollbarThumbVertical="@drawable/scrollbar_handle_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="visible"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <!--  声音提示	震动提示	     消息提示 -->
+            <LinearLayout
+                style="@style/leba_bg_layout">
+                <!--  声音提示 	-->
+                <LinearLayout
+                    style="@style/leba_bg_top_layout">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12.0dip"
+                        android:layout_weight="1.0"
+                        android:text="震动设置"
+                        android:textColor="#ff333333"
+                        android:textSize="16.0dip" />
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dip" />
+                    <CheckBox
+                        android:id="@+id/shock"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:shadowColor="#ff333333">
+                    </CheckBox>
+                </LinearLayout>
+
+                <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
+
+
+                <!-- 声音设置  -->
+                <LinearLayout
+                    style="@style/leba_bg_bottom_layout">
+                    <TextView android:textSize="16.0dip" android:textColor="#ff333333" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:text="音量大小" android:layout_weight="1.0" />
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dip"/>
+                    <ImageView
+                        android:id="@+id/voice_plus"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:shadowColor="#ff333333"
+                        android:src="@drawable/ic_plus_voice">
+                    </ImageView>
+                    <ImageView
+                        android:id="@+id/voice_mini"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:shadowColor="#ff333333"
+                        android:src="@drawable/ic_mini_voice">
+                        </ImageView>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+

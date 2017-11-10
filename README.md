@@ -1,0 +1,33 @@
+# yigongbang
+
+
+Activity：
+Setting 就是侧滑菜单的设置按钮点出来的设置界面
+Login  就是点了设置界面的退出登陆显示出来的界面
+Detail 就是义工想要看见的义工工作详情界面
+Fruit/FruitAdapter/联合形成了首页底部的义工信息1.2.3.4等等 点击这些信息即为相应的Detail
+Information就是我们的发布者要具体填写的义工名称，时间，地点，人数
+PersonalInfo 个人信息的页面
+SelectPicPopupWindow 从底部弹出窗口的一个类 用来选择头像是拍照还是用相册
+
+
+Fragment:
+BaseFragment 懒加载的管理 3个底部导航栏都继承这个类 用来处理一些网络请求以及缓存加载数据库等 后端
+HomeFragment 主页面碎片
+RecordFragment 义工记录页面
+FavouriteFragment 收藏页面
+MainActivity:主页面逻辑 主要利用BottomNavigation来控制底部导航栏 切换page
+
+layout:
+BaseFragment对应的xml
+HomeFragment对应的xml
+RecordFragment对应的xml
+FavouriteFragment对应的xml
+MainActivity对应的xml
+alert_dialog点击滑动菜单的图片控件以后 从底部弹出窗口的xml界面 让我们选择拍照还是从相册选择
+Setting对应的xml
+Login对应的xml  
+Detail对应的xml
+Fruit/FruitAdapter/对应的xml
+Information对应的xml
+PersonalInfo对应的xml
