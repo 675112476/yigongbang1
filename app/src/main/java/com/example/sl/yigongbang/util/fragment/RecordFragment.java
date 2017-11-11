@@ -56,6 +56,25 @@ public class RecordFragment extends BaseFragment{
                 listView2.setAdapter(adapter2);
             }
         });
+        OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getCollected",new OkHttpClientManager.ResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Log.e("错误：",e.toString());
+            }
+
+            @Override
+            public void onResponse(String u) {
+                record_finished=splitString(u);
+                Log.e("----------Record回调内容",u);
+
+                for(int i=0;i<record_finished.length;i++)
+                {
+                    Log.e("----------Record结果",record_finished[i]);
+                }
+                ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_2,record_finished);
+                listView2.setAdapter(adapter3);
+            }
+        });
 
 
     }
