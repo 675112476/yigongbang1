@@ -32,30 +32,12 @@ public class RecordFragment extends BaseFragment{
     private String [] record_finished={"1","2"};
     private String [] record_unfinished={"1","2"};
     private ListView listView2;
+    private ListView listView1;
 
     @Override
     protected void getDataFromServer() {
         Toast.makeText(mContext, "RecordFragment页面请求数据了", Toast.LENGTH_SHORT).show();
 
-        OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getCollected",new OkHttpClientManager.ResultCallback<String>() {
-            @Override
-            public void onError(Request request, Exception e) {
-                Log.e("错误：",e.toString());
-            }
-
-            @Override
-            public void onResponse(String u) {
-                record_unfinished=splitString(u);
-                Log.e("----------Record回调内容",u);
-
-                for(int i=0;i<record_unfinished.length;i++)
-                {
-                    Log.e("----------Record结果",record_unfinished[i]);
-                }
-                ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_unfinished);
-                listView2.setAdapter(adapter2);
-            }
-        });
         OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getCollected",new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
@@ -71,12 +53,29 @@ public class RecordFragment extends BaseFragment{
                 {
                     Log.e("----------Record结果",record_finished[i]);
                 }
-                ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_2,record_finished);
-                listView2.setAdapter(adapter3);
+                ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_finished);
+                listView1.setAdapter(adapter3);
             }
         });
+        OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getCollected",new OkHttpClientManager.ResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Log.e("错误：",e.toString());
+            }
 
+            @Override
+            public void onResponse(String u) {
+                record_unfinished=splitString(u);
+                Log.e("----------Record回调内容",u);
 
+                for(int i=0;i<record_unfinished.length;i++)
+                {
+                    Log.e("----------Record结果",record_unfinished[i]);
+                }
+                ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_unfinished);
+                listView2.setAdapter(adapter4);
+            }
+        });
     }
 
     public String[] splitString(String string){
@@ -90,11 +89,9 @@ public class RecordFragment extends BaseFragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar=(Toolbar)view.findViewById(R.id.toolbar11);
-        ListView listView=(ListView)view.findViewById(R.id.List_view1);
-        //ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_finished);
-        //listView.setAdapter(adapter);
-        getDataFromServer();
+        listView1=(ListView)view.findViewById(R.id.List_view1);
         listView2=(ListView)view.findViewById(R.id.List_view2);
+        getDataFromServer();
 
     }
 }
