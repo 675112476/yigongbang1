@@ -29,8 +29,9 @@ public class RecordFragment extends BaseFragment{
         return R.layout.fragment_message;
     }
 
-    private String [] record_finished;
+    private String [] record_finished={"1","2"};
     private String [] record_unfinished={"1","2"};
+    private ListView listView2;
 
     @Override
     protected void getDataFromServer() {
@@ -45,12 +46,14 @@ public class RecordFragment extends BaseFragment{
             @Override
             public void onResponse(String u) {
                 record_unfinished=splitString(u);
-                Log.e("",u);
+                Log.e("----------Record回调内容",u);
 
                 for(int i=0;i<record_unfinished.length;i++)
                 {
-                    Log.e("Record Success,内容：",record_unfinished[i]);
+                    Log.e("----------Record结果",record_unfinished[i]);
                 }
+                ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_unfinished);
+                listView2.setAdapter(adapter2);
             }
         });
 
@@ -72,8 +75,7 @@ public class RecordFragment extends BaseFragment{
         //ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_finished);
         //listView.setAdapter(adapter);
         getDataFromServer();
-        ListView listView2=(ListView)view.findViewById(R.id.List_view2);
-        ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_unfinished);
-        listView2.setAdapter(adapter2);
+        listView2=(ListView)view.findViewById(R.id.List_view2);
+
     }
 }

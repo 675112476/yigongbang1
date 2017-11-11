@@ -18,6 +18,7 @@ import com.squareup.okhttp.Request;
 
 public class FavouriteFragment extends BaseFragment{
    private String[] data={"1","2","3"};
+   private ListView listview;
     @Override
     protected void initView() {
 
@@ -35,7 +36,7 @@ public class FavouriteFragment extends BaseFragment{
         OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getCollected",new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
-                Log.e("错误：",e.toString());
+                Log.e("--------Favourite错误",e.toString());
             }
 
             @Override
@@ -45,8 +46,10 @@ public class FavouriteFragment extends BaseFragment{
 
                 for(int i=0;i<data.length;i++)
                 {
-                    Log.e("Record Success,内容：",data[i]);
+                    Log.e("----------Favourite结果",data[i]);
                 }
+                 ArrayAdapter<String>adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,data);
+                listview.setAdapter(adapter);
             }
         });
     }
@@ -62,9 +65,9 @@ public class FavouriteFragment extends BaseFragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar=(Toolbar)view.findViewById(R.id.toolbar3);
-        ListView listView=(ListView)view.findViewById(R.id.List_view);
-        ArrayAdapter<String>adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,data);
-        listView.setAdapter(adapter);
+        listview=(ListView)view.findViewById(R.id.List_view);
+      //  ArrayAdapter<String>adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,data);
+        //listView.setAdapter(adapter);
         //这里只是用了适配器adapter做了个例子 其实应该通过网络请求 申请义工信息 然后点击listView的响应按钮 跳转到收藏的义工信息的页面
     }
 }

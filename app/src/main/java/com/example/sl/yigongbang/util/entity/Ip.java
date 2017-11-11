@@ -1,17 +1,19 @@
 package com.example.sl.yigongbang.util.entity;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  * Created by abc on 2017/11/9.
  */
 
 public class Ip {
-    private static String a ="http://192.168.2.126:8080/";
 
-    public static String getIp() {
-        return a;
+
+    public static String getIp()  {
+        //获得本地ip
+        String ip="http://192.168.2.126:8080/";
+        return ip;
     }
 
-    public static void setA(String a) {
-        Ip.a = a;
-    }
 }

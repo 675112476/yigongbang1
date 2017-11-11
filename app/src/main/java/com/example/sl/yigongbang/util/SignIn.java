@@ -72,6 +72,11 @@ public  class SignIn extends AppCompatActivity {
                 public void onResponse(String u) {
                     if(u.equals("登录成功"))
                     {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         Intent im=new Intent(SignIn.this,MainActivity.class);
                         startActivity(im);
                     }else{

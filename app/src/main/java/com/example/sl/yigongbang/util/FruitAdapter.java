@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sl.yigongbang.R;
@@ -24,6 +25,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         TextView ActivityTime;
         TextView AcitivityLocation;
         TextView fruitNumber;
+        ImageView imageView;
 
         public ViewHolder(View view){
             super(view);
@@ -32,6 +34,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
             ActivityTime =(TextView)view.findViewById(R.id.fruit_time);
             AcitivityLocation =(TextView)view.findViewById(R.id.fruit_place);
             fruitNumber=(TextView)view.findViewById(R.id.fruit_number);
+            imageView=(ImageView)view.findViewById(R.id.imageview1);
         }
     }
     public FruitAdapter(List<Activity> fruitList){
@@ -65,6 +68,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Activity fruit=mFruitList.get(position);//获得当前项的fruit类 position是用来计数的
         holder.ActivityName.setText("活动名称"+fruit.getActName());//得到具体的数据
+        holder.imageView.setImageResource(R.drawable.ic_test_0);
     }
 
     @Override

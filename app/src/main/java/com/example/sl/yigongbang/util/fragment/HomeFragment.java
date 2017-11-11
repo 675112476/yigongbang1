@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
     private CircleImageView circleImageView;
     private List<Activity>ActivityList=new ArrayList<Activity>();
     private FruitAdapter adapter;
+    private RecyclerView recyclerView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -66,7 +67,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onError(Request request, Exception e)
                     {
-                        e.printStackTrace();
+                        Log.e("--------Home错误",e.toString());
                     }
                     @Override
                     public void onResponse(List<Activity> us)
@@ -74,8 +75,10 @@ public class HomeFragment extends Fragment {
                        ActivityList=us;
                         for(Activity attribute : ActivityList) {
 
-                            Log.e("=========", "onResponse: "+attribute.getActName() );
+                            Log.e("--------Home结果", "onResponse: "+attribute.getActName() );
                         }
+                        adapter=new FruitAdapter(ActivityList);
+                        recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
                     }
                 });
     }
@@ -128,12 +131,16 @@ public class HomeFragment extends Fragment {
             });
         getDataFromServer();
 
+        for(Activity attribute : ActivityList) {
+
+            Log.e("------!!!!!!!!", "onResponse: "+attribute.getActName() );
+        }
         //滚动控件/卡片布局逻辑
-        RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列
         recyclerView.setLayoutManager(layoutManager);//网格布局
-        adapter=new FruitAdapter(ActivityList);
-        recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
+       // adapter=new FruitAdapter(ActivityList);
+        //recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
         convenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
 
 
