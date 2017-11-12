@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -31,7 +32,7 @@ public class Detail extends AppCompatActivity {
         String fruitName=intent.getStringExtra(FRUIT_NAME);//从intent中获取传入的图片以及名字 并给予我们自己定义的fruitName变量等 方便在功能逻辑中调用
         String fruitTime=intent.getStringExtra(FRUIT_TIME);
         String fruitPlace=intent.getStringExtra(FRUIT_PLACE);
-        String fruitNumber=intent.getStringExtra(FRUIT_NUMBER);//这边有错 getInt
+        String fruitNumber=intent.getStringExtra(FRUIT_NUMBER);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);//Toolbar实例化
         CollapsingToolbarLayout collapsingToolbarLayout=(CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);//Toolbar加强实例化
         TextView detail_name=(TextView)findViewById(R.id.detail_name);

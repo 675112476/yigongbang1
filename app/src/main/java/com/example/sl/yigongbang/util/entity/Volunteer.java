@@ -1,7 +1,7 @@
 package com.example.sl.yigongbang.util.entity;
 
 public class Volunteer {
-	
+
 	private int id;
 	private String phone;
 	private String password;
@@ -9,7 +9,7 @@ public class Volunteer {
 	private Integer gender;
 	private Integer age;
 	private String address;
-	private Byte[] icon;
+	private String image;
 	private Integer credit;
 	private String nickName;
 	public int getId() {
@@ -54,11 +54,12 @@ public class Volunteer {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Byte[] getIcon() {
-		return icon;
+
+	public String getImage() {
+		return image;
 	}
-	public void setIcon(Byte[] icon) {
-		this.icon = icon;
+	public void setImage(String image) {
+		this.image = image;
 	}
 	public Integer getCredit() {
 		return credit;
@@ -77,5 +78,5 @@ public class Volunteer {
 	public String toString() {
 		return "Volunteer [id=" + id + ", phone=" + phone + ", password=" + password + "]";
 	}
-	
+
 }

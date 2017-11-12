@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
                        ActivityList=us;
                         for(Activity attribute : ActivityList) {
 
-                            Log.e("--------Home结果", "onResponse: "+attribute.getActName() );
+                            Log.e("--------maxpeople", "onResponse: "+attribute.getMaxPeople() );
                         }
                         adapter=new FruitAdapter(ActivityList);
                         recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment {
                         startActivity(intentpersonal);
                         break;
                     case R.id.nav_setting://点击setting的item时候
-                        Intent intentsetting=new Intent(getActivity(),Setting.class);
+                        Intent  intentsetting=new Intent(getActivity(),Setting.class);
                         startActivity(intentsetting);
                         getActivity().finish();
                         break;
@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment {
         });
         circleImageView=(CircleImageView) view.findViewById(R.id.icon_image);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);//悬浮按钮实例化 逻辑化
-            fab.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.INVISIBLE);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
