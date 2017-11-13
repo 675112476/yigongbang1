@@ -32,6 +32,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zhy on 15/8/17.
@@ -50,6 +51,7 @@ public class OkHttpClientManager
     {
         mOkHttpClient = new OkHttpClient();
         //cookie enabled
+        mOkHttpClient.setConnectTimeout(4, TimeUnit.SECONDS);
         mOkHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ORIGINAL_SERVER));
         mDelivery = new Handler(Looper.getMainLooper());
         mGson = new Gson();

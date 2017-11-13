@@ -57,6 +57,7 @@ public class HomeFragment extends Fragment {
     private List<Activity>ActivityList=new ArrayList<Activity>();
     private FruitAdapter adapter;
     private RecyclerView recyclerView;
+    protected Context mContext;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment {
                     public void onError(Request request, Exception e)
                     {
                         Log.e("--------Home错误",e.toString());
+                        Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onResponse(List<Activity> us)
@@ -90,7 +92,9 @@ public class HomeFragment extends Fragment {
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
+        mContext = getContext();
         setHasOptionsMenu(true);
         Toolbar toolbar = (Toolbar)view. findViewById(R.id.toolbar);//ToolBar实例化 逻辑化
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);//通过setSupportActionBar方法引用ToolBar实例

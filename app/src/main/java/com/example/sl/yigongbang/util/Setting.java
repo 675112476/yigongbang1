@@ -153,6 +153,7 @@ public class Setting extends AppCompatActivity {
                 if (resultCode==RESULT_OK){//拍照成功的话
                     try{
                         //将拍摄的照片显示出来
+                        //pa*******
                         Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                         picture.setImageBitmap(bitmap);
                         //将URI对象变成最基本的Bitmap对象 指定分辨率
@@ -222,6 +223,7 @@ public class Setting extends AppCompatActivity {
     }
     private void displayImage(String imagePath){
         if(imagePath!=null){
+            //****
             Bitmap bitmap=BitmapFactory.decodeFile(imagePath);
             picture.setImageBitmap(bitmap);
         }else{

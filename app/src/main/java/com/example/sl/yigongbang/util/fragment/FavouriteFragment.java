@@ -32,11 +32,11 @@ public class FavouriteFragment extends BaseFragment{
 
     @Override
     protected void getDataFromServer() {
-        Toast.makeText(mContext, "FavouriteFragment页面请求数据了", Toast.LENGTH_SHORT).show();
         OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getCollected",new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
                 Log.e("--------Favourite错误",e.toString());
+                Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
             }
 
             @Override
