@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.sl.yigongbang.R;
 import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
+import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
 import com.example.sl.yigongbang.util.fragment.BaseFragment;
 import com.example.sl.yigongbang.util.widget.MyEditText;
@@ -32,6 +33,7 @@ public  class SignIn extends AppCompatActivity {
     TextView LoginButton;
     MyEditText username;
     MyEditText password;
+    private Global_Data data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,7 @@ public  class SignIn extends AppCompatActivity {
 
         username=(MyEditText)findViewById(R.id.username);
         password=(MyEditText)findViewById(R.id.password);
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,9 +64,9 @@ public  class SignIn extends AppCompatActivity {
         @Override
         public void run() {
 
-            String userName=username.getText().toString();
+            final String phone=username.getText().toString();
             String passWord=password.getText().toString();
-            OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_login?phone="+userName+"&password="+passWord, new OkHttpClientManager.ResultCallback<String>() {
+            OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_login?phone="+phone+"&password="+passWord, new OkHttpClientManager.ResultCallback<String>() {
                 @Override
                 public void onError(Request request, Exception e) {
                     Log.e("3221321",e.toString());
@@ -74,11 +77,9 @@ public  class SignIn extends AppCompatActivity {
                 public void onResponse(String u) {
                     if(u.equals("登录成功"))
                     {
-//                        try {
-//                            Thread.sleep(2000);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
+                        data=(Global_Data)getApplication();
+                        data.setVol_phone(phone);
+                        Log.e("-----vol_phone",data.getVol_phone());
                         Intent im=new Intent(SignIn.this,MainActivity.class);
                         startActivity(im);
                     }else{

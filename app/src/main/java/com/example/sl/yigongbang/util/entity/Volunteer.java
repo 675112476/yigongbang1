@@ -1,5 +1,6 @@
 package com.example.sl.yigongbang.util.entity;
 
+
 public class Volunteer {
 
 	private int id;
@@ -78,5 +79,6 @@ public class Volunteer {
 	public String toString() {
 		return "Volunteer [id=" + id + ", phone=" + phone + ", password=" + password + "]";
 	}
+
 
 }

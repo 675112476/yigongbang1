@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -36,8 +37,12 @@ import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
 import com.example.sl.yigongbang.util.PersonalInfo;
 import com.example.sl.yigongbang.util.Setting;
 import com.example.sl.yigongbang.util.entity.Activity;
+import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
+import com.example.sl.yigongbang.util.entity.Volunteer;
 import com.squareup.okhttp.Request;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -55,9 +60,11 @@ public class HomeFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private CircleImageView circleImageView;
     private List<Activity>ActivityList=new ArrayList<Activity>();
+    private List<Volunteer>VolunteerList=new ArrayList<Volunteer>();
     private FruitAdapter adapter;
     private RecyclerView recyclerView;
     protected Context mContext;
+    private Global_Data data;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -68,7 +75,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onError(Request request, Exception e)
                     {
-                        Log.e("--------Home错误",e.toString());
+                        Log.e("--------getData",e.toString());
                         Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
                     }
                     @Override
@@ -76,8 +83,7 @@ public class HomeFragment extends Fragment {
                     {
                        ActivityList=us;
                         for(Activity attribute : ActivityList) {
-
-                            Log.e("--------maxpeople", "onResponse: "+attribute.getMaxPeople() );
+                            Log.e("-----Home Activity_name",attribute.getActName());
                         }
                         adapter=new FruitAdapter(ActivityList);
                         recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
@@ -85,6 +91,37 @@ public class HomeFragment extends Fragment {
                 });
     }
 
+    protected void getGlobal_Data(){
+
+        OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_getInfo",
+                new OkHttpClientManager.ResultCallback<List<Volunteer>>()
+                {
+                    @Override
+                    public void onError(Request request, Exception e)
+                    {
+                        Log.e("--------getGlobaldata",e.toString());
+                        Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onResponse(List<Volunteer> us)
+                    {
+                        VolunteerList=us;
+                        for(Volunteer volunteer : VolunteerList) {
+                            Log.e("-----Home vol_NickName",volunteer.getNickName());
+                            data.setVol_id(volunteer.getId());
+                            data.setVol_phone(volunteer.getPhone());
+                            data.setVol_address(volunteer.getAddress());
+                            data.setVol_credit(volunteer.getCredit());
+                            data.setVol_age(volunteer.getAge());
+                            data.setVol_gender(volunteer.getGender());
+                            data.setVol_password(volunteer.getPassword());
+                            data.setVol_image(volunteer.getImage());
+                            data.setVol_nickName(volunteer.getNickName());
+                            data.setVol_realName(volunteer.getRealName());
+                        }
+                    }
+                });
+    }
     public String[] splitString(String string){
 
         String[] array = string.split(",");
@@ -101,11 +138,17 @@ public class HomeFragment extends Fragment {
         mDrawerLayout = (DrawerLayout) view.findViewById(R.id.drawer_layout);//实例化滑动菜单控件
         NavigationView navView = (NavigationView)view. findViewById(R.id.nav_view);//滑动菜单菜单具体控件实例化
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        data=(Global_Data)getActivity().getApplication();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);//为了显示导航按钮图标 这里要改一下了
         }
         navView.setCheckedItem(R.id.nav_personal);//call菜单默认选中， 这里我设置成了个人信息
+        TextView Nick_name=(TextView)view.findViewById(R.id.nick_name);
+        if(data.getVol_nickName()!=null){
+            Nick_name.setText(data.getVol_nickName());
+        }
+
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){//监听滑动菜单控件 在这里给Item添加逻辑
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {//点击任意侧滑菜单图标就会回调这个方法

@@ -15,13 +15,16 @@
         android:src="@drawable/nav_icon"/>
 
     <TextView
-        android:id="@+id/mail"
+        android:id="@+id/nick_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="个性签名orz 会使用Bundle传递数据"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:text=""
         android:textColor="#FFF"
-        android:textSize="14sp"/>
+        android:textSize="14sp" />
 
 
 </RelativeLayout>
