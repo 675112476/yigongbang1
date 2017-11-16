@@ -8,8 +8,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.Path;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -30,11 +33,15 @@ import android.widget.Toast;
 
 import com.example.sl.yigongbang.R;
 import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
+import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
 import com.example.sl.yigongbang.util.fragment.HomeFragment;
+import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,17 +54,20 @@ public class Setting extends AppCompatActivity {
     public static final int CHOOSE_PHOTO=2;
     private Uri imageUri;
     public File outputImage;
+    private Global_Data data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         picture=(ImageView)findViewById(R.id.picture);
+
+        OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/"+Global_Data.vol_image);
         Button button1=(Button)findViewById(R.id.button_exit);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Setting.this,LoginMain.class);
-                startActivity(intent);
+                Logout();
+
             }
         });
         TextView headicon=(TextView)findViewById(R.id.head_icon);
@@ -134,6 +144,21 @@ public class Setting extends AppCompatActivity {
         }
     };
 
+    private void Logout(){
+        OkHttpClientManager.getAsyn(Ip.getIp() + "Volunteer_ssh/volunteer_logout", new OkHttpClientManager.ResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Toast.makeText(Setting.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(String us) {
+
+                Intent intent=new Intent(Setting.this,LoginMain.class);
+                startActivity(intent);
+            }
+        });
+    }
     private  void openAlbum(){
         Intent intent=new Intent("android.intent.action.GET_CONTENT");//新建一个intent对象 action匹配启动相机的行为
         intent.setType("image/*");//必要参数
@@ -162,9 +187,13 @@ public class Setting extends AppCompatActivity {
                         //将拍摄的照片显示出来
                         //pa*******
                         Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        Log.e("拍照Width",Integer.toString(bitmap.getWidth()));
+                        bitmap=cutImage(bitmap);
+                        Log.e("拍照Width",Integer.toString(bitmap.getWidth()));
                         try{
-                            Log.e("---outputimage",outputImage.toString());
-                            sendfile(outputImage);
+
+                            File file=saveMyBitmap(bitmap);
+                            sendfile(file);
                         }catch (java.io.IOException e){
 
                         }
@@ -193,6 +222,25 @@ public class Setting extends AppCompatActivity {
             default:
                 break;
         }
+    }
+    public File saveMyBitmap(Bitmap mBitmap){
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File file = null;
+        try {
+            file = File.createTempFile(
+                    "123",  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+
+            FileOutputStream out=new FileOutputStream(file);
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 20, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  file;
     }
     @TargetApi(19)
     private  void handleImageOnKitKat(Intent data){//全部解析成路径
@@ -242,6 +290,10 @@ public class Setting extends AppCompatActivity {
             try
             {
                 Log.e("---displayImage",imagePath);
+                //bitmap=cutImage(bitmap);
+                Log.e("Width",Integer.toString(bitmap.getWidth()));
+                bitmap=cutImage(bitmap);
+                Log.e("Width",Integer.toString(bitmap.getWidth()));
                 sendfile(compressImage(bitmap,imagePath,null));
             }catch (java.io.IOException e){
             }
@@ -280,6 +332,14 @@ public class Setting extends AppCompatActivity {
             }
         },file,"file");
 
+    }
+    public Bitmap cutImage(Bitmap bitmap){
+        while(bitmap.getWidth()>1000||bitmap.getHeight()>1000){
+            Matrix matrix = new Matrix();
+            matrix.setScale(0.5f, 0.5f);
+            bitmap=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+        }
+        return bitmap;
     }
     public static File compressImage(Bitmap bm,String path, String fileName) throws IOException {
         File dirFile = new File(path);

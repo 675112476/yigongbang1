@@ -48,6 +48,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.microedition.khronos.opengles.GL;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -64,9 +66,10 @@ public class HomeFragment extends Fragment {
     private FruitAdapter adapter;
     private RecyclerView recyclerView;
     protected Context mContext;
-    private Global_Data data;
+    public Global_Data data;
     View headerView;
     TextView Nick_name;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
@@ -110,21 +113,20 @@ public class HomeFragment extends Fragment {
                     {
                         volunteer=us;
                         Log.e("--------volunteer",volunteer.getNickName());
-                        data.setVol_id(volunteer.getId());
-                        data.setVol_phone(volunteer.getPhone());
-                        data.setVol_address(volunteer.getAddress());
-                        data.setVol_credit(volunteer.getCredit());
-                        data.setVol_age(volunteer.getAge());
-                        data.setVol_gender(volunteer.getGender());
-                        data.setVol_password(volunteer.getPassword());
-                        data.setVol_image(volunteer.getImage());
-                        data.setVol_nickName(volunteer.getNickName());
-                        data.setVol_realName(volunteer.getRealName());
-                        Log.e("data",data.toString());
-                        Log.e("nickname",data.getVol_nickName());
-
+                        Global_Data.vol_image=volunteer.getImage();
+                        Global_Data.vol_nickName=volunteer.getNickName();
+                        Global_Data.vol_address=volunteer.getAddress();
+                        Global_Data.vol_age=volunteer.getAge();
+                        Global_Data.vol_credit=volunteer.getCredit();
+                        Global_Data.vol_gender=volunteer.getGender();
+                        Global_Data.vol_id=volunteer.getId();
+                        Global_Data.vol_password=volunteer.getPassword();
+                        Global_Data.vol_phone=volunteer.getPhone();
+                        Global_Data.vol_realName=volunteer.getRealName();
                         Nick_name=(TextView)headerView.findViewById(R.id.nick_name);
-                        Nick_name.setText(data.getVol_nickName());
+                        Nick_name.setText(Global_Data.vol_nickName);
+                        CircleImageView picture=(CircleImageView)headerView.findViewById(R.id.icon_image);
+                        OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/"+Global_Data.vol_image);
                     }
 
                 });
