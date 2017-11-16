@@ -176,6 +176,8 @@ public class HomeFragment extends Fragment {
 //        Nick_name.setText(data.getVol_nickName());
 //        Log.e("***",data.getVol_nickName());
         circleImageView=(CircleImageView) view.findViewById(R.id.icon_image);
+
+
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);//悬浮按钮实例化 逻辑化
             fab.setVisibility(View.INVISIBLE);
             fab.setOnClickListener(new View.OnClickListener() {

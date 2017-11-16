@@ -77,9 +77,8 @@ public  class SignIn extends AppCompatActivity {
                 public void onResponse(String u) {
                     if(u.equals("登录成功"))
                     {
-                        data=(Global_Data)getApplication();
-                        data.setVol_phone(phone);
-                        Log.e("-----vol_phone",data.getVol_phone());
+                        Global_Data.vol_phone = phone;
+                        Log.e("-----vol_phone",Global_Data.vol_phone);
                         Intent im=new Intent(SignIn.this,MainActivity.class);
                         startActivity(im);
                     }else{
