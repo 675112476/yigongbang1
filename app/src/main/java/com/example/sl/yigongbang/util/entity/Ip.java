@@ -12,7 +12,7 @@ public class Ip {
 
     public static String getIp()  {
         //获得ip
-        String ip="http://10.0.2.2:8080/";
+        String ip="http://106.14.9.53:8080/";
         return ip;
     }
 
