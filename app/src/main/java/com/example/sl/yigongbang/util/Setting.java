@@ -19,6 +19,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,10 +29,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sl.yigongbang.R;
+import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
+import com.example.sl.yigongbang.util.entity.Ip;
 import com.example.sl.yigongbang.util.fragment.HomeFragment;
+import com.squareup.okhttp.Request;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Setting extends AppCompatActivity {
@@ -40,6 +46,7 @@ public class Setting extends AppCompatActivity {
     public static final int TAKE_PHOTO=1;//字符串常量值为1
     public static final int CHOOSE_PHOTO=2;
     private Uri imageUri;
+    public File outputImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +99,7 @@ public class Setting extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.btn_take_photo:
                     //创建File对象，用于存储拍照后的图片
-                    File outputImage=new File(getExternalCacheDir(),"output_image.jpg");//得到缓存目录 指定图片的内存控件 拍出来的图片赋予唯一标识符output_image.jpg
+                    outputImage=new File(getExternalCacheDir(),"output_image.jpg");//得到缓存目录 指定图片的内存控件 拍出来的图片赋予唯一标识符output_image.jpg
                     try {
                         if(outputImage.exists()){
                             outputImage.delete();//如果照片已经存在 则删除 为了多次拍摄
@@ -147,7 +154,7 @@ public class Setting extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult (int requestCode, int resultCode, Intent data)  {
         switch(requestCode){//请求码为选择项
             case TAKE_PHOTO:
                 if (resultCode==RESULT_OK){//拍照成功的话
@@ -155,6 +162,13 @@ public class Setting extends AppCompatActivity {
                         //将拍摄的照片显示出来
                         //pa*******
                         Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        try{
+                            Log.e("---outputimage",outputImage.toString());
+                            sendfile(outputImage);
+                        }catch (java.io.IOException e){
+
+                        }
+
                         picture.setImageBitmap(bitmap);
                         //将URI对象变成最基本的Bitmap对象 指定分辨率
 //                        Intent intent2=new Intent(Setting.this,HomeFragment.class);
@@ -221,10 +235,17 @@ public class Setting extends AppCompatActivity {
         }
         return path;
     }
-    private void displayImage(String imagePath){
+    private void displayImage (String imagePath){
         if(imagePath!=null){
             //****
             Bitmap bitmap=BitmapFactory.decodeFile(imagePath);
+            try
+            {
+                Log.e("---displayImage",imagePath);
+                sendfile(compressImage(bitmap,imagePath,null));
+            }catch (java.io.IOException e){
+            }
+
             picture.setImageBitmap(bitmap);
         }else{
             Toast.makeText(this, "未能找到图片", Toast.LENGTH_SHORT).show();
@@ -243,5 +264,33 @@ public class Setting extends AppCompatActivity {
                 break;
         }
         return  true;
+    }
+    public void sendfile(File file) throws IOException {
+        OkHttpClientManager.postAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_updateImage", new OkHttpClientManager.ResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+
+                Log.e("----send_file_Failed",e.toString());
+            }
+
+            @Override
+            public void onResponse(String string) {
+
+                Log.e("----send_file_success",string);
+            }
+        },file,"file");
+
+    }
+    public static File compressImage(Bitmap bm,String path, String fileName) throws IOException {
+        File dirFile = new File(path);
+        if(!dirFile.exists()){
+            dirFile.mkdir();
+        }
+        File myCaptureFile = new File(path);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
+        return myCaptureFile;
     }
 }

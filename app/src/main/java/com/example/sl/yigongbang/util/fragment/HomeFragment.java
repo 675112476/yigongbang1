@@ -60,11 +60,14 @@ public class HomeFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private CircleImageView circleImageView;
     private List<Activity>ActivityList=new ArrayList<Activity>();
-    private List<Volunteer>VolunteerList=new ArrayList<Volunteer>();
+    private Volunteer volunteer;
     private FruitAdapter adapter;
     private RecyclerView recyclerView;
     protected Context mContext;
     private Global_Data data;
+    View headerView;
+    TextView Nick_name;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -94,7 +97,7 @@ public class HomeFragment extends Fragment {
     protected void getGlobal_Data(){
 
         OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_getInfo",
-                new OkHttpClientManager.ResultCallback<List<Volunteer>>()
+                new OkHttpClientManager.ResultCallback<Volunteer>()
                 {
                     @Override
                     public void onError(Request request, Exception e)
@@ -103,23 +106,27 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
                     }
                     @Override
-                    public void onResponse(List<Volunteer> us)
+                    public void onResponse(Volunteer us)
                     {
-                        VolunteerList=us;
-                        for(Volunteer volunteer : VolunteerList) {
-                            Log.e("-----Home vol_NickName",volunteer.getNickName());
-                            data.setVol_id(volunteer.getId());
-                            data.setVol_phone(volunteer.getPhone());
-                            data.setVol_address(volunteer.getAddress());
-                            data.setVol_credit(volunteer.getCredit());
-                            data.setVol_age(volunteer.getAge());
-                            data.setVol_gender(volunteer.getGender());
-                            data.setVol_password(volunteer.getPassword());
-                            data.setVol_image(volunteer.getImage());
-                            data.setVol_nickName(volunteer.getNickName());
-                            data.setVol_realName(volunteer.getRealName());
-                        }
+                        volunteer=us;
+                        Log.e("--------volunteer",volunteer.getNickName());
+                        data.setVol_id(volunteer.getId());
+                        data.setVol_phone(volunteer.getPhone());
+                        data.setVol_address(volunteer.getAddress());
+                        data.setVol_credit(volunteer.getCredit());
+                        data.setVol_age(volunteer.getAge());
+                        data.setVol_gender(volunteer.getGender());
+                        data.setVol_password(volunteer.getPassword());
+                        data.setVol_image(volunteer.getImage());
+                        data.setVol_nickName(volunteer.getNickName());
+                        data.setVol_realName(volunteer.getRealName());
+                        Log.e("data",data.toString());
+                        Log.e("nickname",data.getVol_nickName());
+
+                        Nick_name=(TextView)headerView.findViewById(R.id.nick_name);
+                        Nick_name.setText(data.getVol_nickName());
                     }
+
                 });
     }
     public String[] splitString(String string){
@@ -137,18 +144,13 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);//通过setSupportActionBar方法引用ToolBar实例
         mDrawerLayout = (DrawerLayout) view.findViewById(R.id.drawer_layout);//实例化滑动菜单控件
         NavigationView navView = (NavigationView)view. findViewById(R.id.nav_view);//滑动菜单菜单具体控件实例化
+        headerView = navView.getHeaderView(0);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        data=(Global_Data)getActivity().getApplication();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);//为了显示导航按钮图标 这里要改一下了
         }
         navView.setCheckedItem(R.id.nav_personal);//call菜单默认选中， 这里我设置成了个人信息
-        TextView Nick_name=(TextView)view.findViewById(R.id.nick_name);
-        if(data.getVol_nickName()!=null){
-            Nick_name.setText(data.getVol_nickName());
-        }
-
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){//监听滑动菜单控件 在这里给Item添加逻辑
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {//点击任意侧滑菜单图标就会回调这个方法
@@ -166,6 +168,11 @@ public class HomeFragment extends Fragment {
                 return true;
             }
         });
+        data=(Global_Data)getActivity().getApplication();
+        getGlobal_Data();
+//        Nick_name=(TextView)headerView.findViewById(R.id.nick_name);
+//        Nick_name.setText(data.getVol_nickName());
+//        Log.e("***",data.getVol_nickName());
         circleImageView=(CircleImageView) view.findViewById(R.id.icon_image);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);//悬浮按钮实例化 逻辑化
             fab.setVisibility(View.INVISIBLE);
@@ -178,10 +185,7 @@ public class HomeFragment extends Fragment {
             });
         getDataFromServer();
 
-        for(Activity attribute : ActivityList) {
 
-            Log.e("------!!!!!!!!", "onResponse: "+attribute.getActName() );
-        }
         //滚动控件/卡片布局逻辑
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列

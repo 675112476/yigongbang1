@@ -77,8 +77,17 @@ public class Volunteer {
 
 	@Override
 	public String toString() {
-		return "Volunteer [id=" + id + ", phone=" + phone + ", password=" + password + "]";
+		return "Volunteer{" +
+				"id=" + id +
+				", phone='" + phone + '\'' +
+				", password='" + password + '\'' +
+				", realName='" + realName + '\'' +
+				", gender=" + gender +
+				", age=" + age +
+				", address='" + address + '\'' +
+				", image='" + image + '\'' +
+				", credit=" + credit +
+				", nickName='" + nickName + '\'' +
+				'}';
 	}
-
-
 }
