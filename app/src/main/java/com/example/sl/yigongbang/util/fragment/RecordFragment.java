@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,7 +20,8 @@ import com.squareup.okhttp.Request;
 import java.util.List;
 
 public class RecordFragment extends BaseFragment{
-
+    LinearLayout finishedLinear;
+    LinearLayout unfinishedLinear;
     @Override
     protected void initView() {
     }
@@ -31,8 +33,8 @@ public class RecordFragment extends BaseFragment{
 
     private String [] record_finished={"1","2"};
     private String [] record_unfinished={"1","2"};
-    private ListView listView2;
-    private ListView listView1;
+   // private ListView listView2;
+    //private ListView listView1;
 
     @Override
     protected void getDataFromServer() {
@@ -52,8 +54,8 @@ public class RecordFragment extends BaseFragment{
                 {
                     Log.e("----------Record结果",record_finished[i]);
                 }
-                ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_finished);
-                listView1.setAdapter(adapter3);
+               // ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_finished);
+               // listView1.setAdapter(adapter3);
             }
         });
         OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getCollected",new OkHttpClientManager.ResultCallback<String>() {
@@ -71,8 +73,8 @@ public class RecordFragment extends BaseFragment{
                 {
                     Log.e("----------Record结果",record_unfinished[i]);
                 }
-                ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_unfinished);
-                listView2.setAdapter(adapter4);
+                //ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,record_unfinished);
+                //listView2.setAdapter(adapter4);
             }
         });
     }
@@ -88,9 +90,31 @@ public class RecordFragment extends BaseFragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar=(Toolbar)view.findViewById(R.id.toolbar11);
-        listView1=(ListView)view.findViewById(R.id.List_view1);
-        listView2=(ListView)view.findViewById(R.id.List_view2);
+        //listView1=(ListView)view.findViewById(R.id.List_view1);
+        //listView2=(ListView)view.findViewById(R.id.List_view2);
+        finishedLinear=(LinearLayout)getActivity().findViewById(R.id.finished_record);
+        finishedLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment1 fragment1 = new Fragment1();
+                getFragmentManager().beginTransaction().replace(R.id.record_container, fragment1).commit();
+            }
+        });
+        unfinishedLinear=(LinearLayout)getActivity().findViewById(R.id.unfinished_record);
+        unfinishedLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment2 fragment2 = new Fragment2();
+                getFragmentManager().beginTransaction().replace(R.id.record_container, fragment2).commit();
+            }
+        });
         getDataFromServer();
-
     }
+
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//
+//    }
 }

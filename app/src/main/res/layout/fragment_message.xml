@@ -22,71 +22,73 @@
             android:title="@string/title_message">
         </android.support.v7.widget.Toolbar>
     </LinearLayout>
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#87CEFA"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ScrollView
-            android:scrollbarThumbVertical="@drawable/scrollbar_handle_vertical"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:visibility="visible"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+        android:layout_height="180dp">
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <!--  声音提示	震动提示	     消息提示 -->
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/nav_icon"/>
+            </LinearLayout>
                 <LinearLayout
-                    style="@style/leba_bg_layout">
-                    <!--  声音提示 	-->
-                    <LinearLayout style="@style/leba_bg_top_layout">
-
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:id="@+id/finished_record"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12.0dip"
-                            android:layout_weight="1.0"
                             android:text="已完成:"
                             android:textColor="#ff333333"
-                            android:textSize="16.0dip" />
-                       <ListView
-                           android:id="@+id/List_view1"
-                           android:layout_width="300dp"
-                           android:layout_height="wrap_content">
-
-                       </ListView>
-
-
-                    </LinearLayout>
-
-                    <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
-
-
-                    <!-- 声音设置  -->
-                    <LinearLayout
-                        style="@style/leba_bg_bottom_layout">
-                        <TextView android:textSize="16.0dip"
-                            android:textColor="#ff333333"
+                            android:textSize="25.0dip" />
+                        <TextView
+                            android:background="@drawable/leba_shape_bg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12.0dip"
+                            android:text="XX项"
+                            android:textColor="#ff333333"
+                            android:textSize="25.0dip" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/unfinished_record"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="未完成:"
-                            android:layout_weight="1.0" />
-                        <ListView
-                            android:id="@+id/List_view2"
-                            android:layout_width="300dp"
-                            android:layout_height="wrap_content">
-                        </ListView>
+                            android:textColor="#ff333333"
+                            android:textSize="25.0dip"/>
+                        <TextView
+                            android:background="@drawable/leba_shape_bg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="XX项"
+                            android:textColor="#ff333333"
+                            android:textSize="25.0dip" />
                     </LinearLayout>
                 </LinearLayout>
-                <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
 
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/record_container"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical">
 
-            </LinearLayout>
-        </ScrollView>
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
