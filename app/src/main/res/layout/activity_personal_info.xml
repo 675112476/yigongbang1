@@ -129,11 +129,12 @@
 
                     <EditText
                         android:id="@+id/address"
+                        android:background="@drawable/biankuang"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:hint="请输入你的地址"
                         android:inputType="textMultiLine"
-                        android:minLines="6"/>
+                        android:minLines="6" />
 
                 </LinearLayout>
                 <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />

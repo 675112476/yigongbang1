@@ -30,7 +30,6 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
         back = (ImageView)findViewById(R.id.back);
         button=(TextView)findViewById(R.id.signin);
 
@@ -55,6 +54,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onError(Request request, Exception e) {
 
+                        Toast.makeText(SignUp.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
