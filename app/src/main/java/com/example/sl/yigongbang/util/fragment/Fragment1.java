@@ -46,7 +46,7 @@ public class Fragment1 extends BaseFragment {
         return R.layout.fragment_fragment1;
     }
     protected void getDataFromServer() {
-        OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getAll",
+        OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getFinished",
                 new OkHttpClientManager.ResultCallback<List<Activity>>()
                 {
                     @Override

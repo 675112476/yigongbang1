@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
 
+import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
 import com.squareup.okhttp.Call;
@@ -110,6 +111,7 @@ public class OkHttpClientManager
     private void _getAsyn(String url, final ResultCallback callback)
     {
         final Request request = new Request.Builder()
+                .addHeader("cookie", Global_Data.sessionId)
                 .url(url)
                 .build();
         deliveryResult(callback, request);
@@ -168,6 +170,7 @@ public class OkHttpClientManager
     {
         Param[] paramsArr = map2Params(params);
         Request request = buildPostRequest(url, paramsArr);
+        request = request.newBuilder().addHeader("cookie", Global_Data.sessionId).build();
         deliveryResult(callback, request);
     }
 

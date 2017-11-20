@@ -19,7 +19,7 @@ public class Global_Data extends Application {
     public static String vol_image;
     public static Integer vol_credit;
     public static String vol_nickName;
-
+    public static String sessionId;
 
 
     @Override
