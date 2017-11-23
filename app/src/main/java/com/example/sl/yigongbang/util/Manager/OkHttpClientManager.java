@@ -170,7 +170,7 @@ public class OkHttpClientManager
     {
         Param[] paramsArr = map2Params(params);
         Request request = buildPostRequest(url, paramsArr);
-        request = request.newBuilder().addHeader("cookie", Global_Data.sessionId).build();
+
         deliveryResult(callback, request);
     }
 

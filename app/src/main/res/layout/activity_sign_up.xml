@@ -78,20 +78,20 @@
                 >
 
                 <com.example.sl.yigongbang.util.widget.MyEditText
-                    android:id="@+id/phonenumber"
+                    android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dp"
-                    android:layout_marginRight="65dp"
+                    android:layout_marginRight="60dp"
                     android:background="#0000"
-                    android:drawableLeft="@drawable/user"
-                    android:drawablePadding="35dp"
-                    android:hint="Username"
-                    android:inputType="text"
+                    android:drawableLeft="@drawable/password"
+                    android:drawablePadding="38dp"
+                    android:hint="手机"
+                    android:inputType="number"
                     android:maxLength="20"
-
                     android:padding="16dp"
                     android:textColor="@color/signintext"
+
                     android:textColorHint="@color/signintext"
                     android:textSize="16dp" />
 
@@ -102,26 +102,37 @@
                     android:layout_marginRight="60dp"
                     android:layout_height="1dp"
                     android:background="@color/signintext" />
-
-                <com.example.sl.yigongbang.util.widget.MyTextView
-                    android:textSize="16dp"
-                    android:id="@+id/phone"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone"
-                    android:textColorHint="@color/signintext"
-                    android:textColor="@color/signintext"
-                    android:layout_marginLeft="60dp"
-                    android:inputType="text"
-                    android:background="#0000"
-                    android:maxLength="20"
+                    android:orientation="horizontal">
+                    <com.example.sl.yigongbang.util.widget.MyEditText
+                        android:id="@+id/yanzhenma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:background="#0000"
+                        android:drawableLeft="@drawable/password"
+                        android:drawablePadding="38dp"
+                        android:hint="验证码"
+                        android:inputType="number"
+                        android:maxLength="20"
+                        android:padding="16dp"
+                        android:textColor="@color/signintext"
 
-                    android:padding="16dp"
-                    android:drawableLeft="@drawable/phone"
-                    android:drawablePadding="35dp"
-                    android:layout_marginRight="65dp"/>
+                        android:textColorHint="@color/signintext"
+                        android:textSize="16dp" />
 
+                    <Button
+                        android:id="@+id/send_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rect"
+                        android:text="获得验证码"
+                        android:textColor="#9e3d41" />
 
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_marginLeft="60dp"
@@ -131,25 +142,23 @@
 
 
 
-
                 <com.example.sl.yigongbang.util.widget.MyEditText
-                    android:textSize="16dp"
                     android:id="@+id/password"
-                    android:drawablePadding="38dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
-                    android:textColorHint="@color/signintext"
-                    android:textColor="@color/signintext"
                     android:layout_marginLeft="60dp"
-                    android:inputType="textPassword"
+                    android:layout_marginRight="60dp"
                     android:background="#0000"
-                    android:padding="16dp"
-                    android:maxLength="20"
-
                     android:drawableLeft="@drawable/password"
-                    android:layout_marginRight="60dp"/>
+                    android:drawablePadding="38dp"
+                    android:hint="密码"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:padding="16dp"
+                    android:textColor="@color/signintext"
 
+                    android:textColorHint="@color/signintext"
+                    android:textSize="16dp" />
 
                 <View
                     android:layout_width="match_parent"

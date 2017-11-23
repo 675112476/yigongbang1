@@ -2,11 +2,13 @@ package com.example.sl.yigongbang.util.entity;
 
 import android.app.Application;
 
+import com.mob.MobSDK;
+
 /**
  * Created by abc on 2017/11/12.
  */
 
-public class Global_Data extends Application {
+public class Global_Data extends com.mob.MobApplication {
 
     //全局数据，主要存放volunteer的信息
     public static int vol_id;
@@ -37,4 +39,5 @@ public class Global_Data extends Application {
                 ", vol_nickName='" + vol_nickName + '\'' +
                 '}';
     }
+
 }

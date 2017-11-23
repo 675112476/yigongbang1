@@ -10,7 +10,18 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <application
         android:allowBackup="true"
@@ -19,12 +30,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".util.entity.Global_Data">
+        android:name=".util.entity.Global_Data"
+
+        >
+
         <activity android:name=".util.Detail"/>
         <activity android:name=".util.Setting"/>
         <activity android:name=".util.Information"/>
         <activity android:name=".util.PersonalInfo"/>
 
+        <meta-data android:name="Mob-AppKey" android:value="228ec4b542ef0"/>
+        <meta-data android:name="Mob-AppSecret" android:value="4d799db29a6c983e567e064fe92a87dc"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.sl.cameraalbumtest.fileprovider"
@@ -48,6 +64,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>
