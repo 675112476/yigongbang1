@@ -60,8 +60,7 @@ public class Fragment1 extends BaseFragment {
                     {
                         ActivityList=us;
                         for(Activity attribute : ActivityList) {
-                            Log.e("" +
-                                    "",attribute.getActName());
+                            Log.e("-----fragment1 Act_name",attribute.getActName());
                         }
                     adapter=new FruitAdapter(ActivityList);
                     recyclerView1.setAdapter(adapter);//适配器实例与recyclerView控件关联

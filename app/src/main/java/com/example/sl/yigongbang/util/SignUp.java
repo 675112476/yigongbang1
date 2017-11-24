@@ -42,6 +42,7 @@ public class SignUp extends AppCompatActivity {
     com.example.sl.yigongbang.util.widget.MyEditText yanzhengma;
 
     Button send_code;
+    boolean checked=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class SignUp extends AppCompatActivity {
                     case SMSSDK.EVENT_GET_VERIFICATION_CODE:
                         if (result == SMSSDK.RESULT_COMPLETE) {
                             Log.e("获取验证成功","-----");
+                            checked=true;
                         } else {
                             Log.e("获取验证失败","-----");
                         }
@@ -100,30 +102,33 @@ public class SignUp extends AppCompatActivity {
                 Map<String,String> map=new HashMap<>();
                 map.put(new String("phone"),new String(phone.getText().toString()) );
                 map.put(new String("password"),new String(password.getText().toString()));
-                OkHttpClientManager.postAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_register", new OkHttpClientManager.ResultCallback<String>() {
-                    @Override
-                    public void onError(Request request, Exception e) {
+                if(checked=true){
+                    OkHttpClientManager.postAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_register", new OkHttpClientManager.ResultCallback<String>() {
+                        @Override
+                        public void onError(Request request, Exception e) {
 
-                        Toast.makeText(SignUp.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
-                    }
+                            Toast.makeText(SignUp.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void onResponse(String string) {
-                        if(string.equals("注册成功")){
-                            Toast.makeText(SignUp.this,"注册成功，请使用电话号码和密码重新登陆！",Toast.LENGTH_LONG).show();
-                            try {
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                        @Override
+                        public void onResponse(String string) {
+                            if(string.equals("注册成功")){
+                                Toast.makeText(SignUp.this,"注册成功，请使用电话号码和密码重新登陆！",Toast.LENGTH_LONG).show();
+                                try {
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                Intent it = new Intent(SignUp.this, LoginMain.class);
+                                startActivity(it);
                             }
-                            Intent it = new Intent(SignUp.this, LoginMain.class);
-                            startActivity(it);
+                            else{
+                                Toast.makeText(SignUp.this,"注册失败，请再次尝试！",Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else{
-                            Toast.makeText(SignUp.this,"注册失败，请再次尝试！",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, map);
+                    }, map);
+                }
+
             }
         });
     }
