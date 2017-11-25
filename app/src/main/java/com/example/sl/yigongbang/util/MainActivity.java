@@ -6,17 +6,28 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sl.yigongbang.R;
+import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
+import com.example.sl.yigongbang.util.entity.Global_Data;
+import com.example.sl.yigongbang.util.entity.Ip;
+import com.example.sl.yigongbang.util.entity.Volunteer;
 import com.example.sl.yigongbang.util.fragment.FavouriteFragment;
 import com.example.sl.yigongbang.util.fragment.HomeFragment;
 import com.example.sl.yigongbang.util.fragment.RecordFragment;
 import com.example.sl.yigongbang.util.widget.NoSlidingViewPaper;
+import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
+    private Volunteer volunteer;
     private NoSlidingViewPaper mViewPager;
 
     //底部菜单栏各个菜单项的点击事件处理
@@ -70,4 +81,5 @@ public class MainActivity extends AppCompatActivity {
         /*给底部导航栏菜单项添加点击事件*/
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
 }

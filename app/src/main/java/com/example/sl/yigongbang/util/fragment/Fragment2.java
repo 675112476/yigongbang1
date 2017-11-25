@@ -17,6 +17,7 @@ import com.example.sl.yigongbang.R;
 import com.example.sl.yigongbang.util.FruitAdapter;
 import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
 import com.example.sl.yigongbang.util.entity.Activity;
+import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
 import com.squareup.okhttp.Request;
 
@@ -64,6 +65,7 @@ public class Fragment2 extends BaseFragment {
                         }
                         adapter=new FruitAdapter(ActivityList);
                         recyclerView2.setAdapter(adapter);//适配器实例与recyclerView控件关联
+                        Global_Data.act_finished=us.size();
                     }
                 });
     }

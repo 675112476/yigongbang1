@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onResponse(List<Activity> us)
                     {
-                       ActivityList=us;
+                        ActivityList=us;
                         for(Activity attribute : ActivityList) {
                             Log.e("-----Home Activity_name",attribute.getActName());
                         }
@@ -125,8 +125,10 @@ public class HomeFragment extends Fragment {
                         Global_Data.vol_realName=volunteer.getRealName();
                         Nick_name=(TextView)headerView.findViewById(R.id.nick_name);
                         Nick_name.setText(Global_Data.vol_nickName);
-                        CircleImageView picture=(CircleImageView)headerView.findViewById(R.id.icon_image);
-                        OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/"+Global_Data.vol_image);
+                        if(Global_Data.vol_image!=null){
+                            CircleImageView picture=(CircleImageView)headerView.findViewById(R.id.icon_image);
+                            OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/icon/"+Global_Data.vol_image);
+                        }
                     }
 
                 });
@@ -179,14 +181,14 @@ public class HomeFragment extends Fragment {
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);//悬浮按钮实例化 逻辑化
-            fab.setVisibility(View.INVISIBLE);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), Information.class);
-                    startActivity(intent);
-                }
-            });
+        fab.setVisibility(View.INVISIBLE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Information.class);
+                startActivity(intent);
+            }
+        });
         getDataFromServer();
 
 
@@ -194,7 +196,7 @@ public class HomeFragment extends Fragment {
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列
         recyclerView.setLayoutManager(layoutManager);//网格布局
-       // adapter=new FruitAdapter(ActivityList);
+        // adapter=new FruitAdapter(ActivityList);
         //recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
         convenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
 
@@ -216,10 +218,10 @@ public class HomeFragment extends Fragment {
                 .setPointViewVisible(true)
                 //设置自动切换（同时设置了切换时间间隔）
                 .startTurning(2000);
-                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-                //设置指示器的方向（左、中、右）
-                //设置点击监听事件
-                //设置手动影响（设置了该项无法手动切换）
+        //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+        //设置指示器的方向（左、中、右）
+        //设置点击监听事件
+        //设置手动影响（设置了该项无法手动切换）
         //设置翻页的效果，不需要翻页效果可用不设
         //setPageTransformer(Transformer.DefaultTransformer);   // 集成特效之后会有白屏现象，新版已经分离，如果要集成特效的例子可以看Demo的点击响应。
 
@@ -234,15 +236,6 @@ public class HomeFragment extends Fragment {
         switch(item.getItemId()){
             case android.R.id.home://当点击标题栏中的id名为home的按钮时
                 mDrawerLayout.openDrawer(GravityCompat.START);//点击打开右滑动菜单
-                break;
-            case R.id.backup://当点击标题栏中的id名为backup的按钮时
-                Toast.makeText(getActivity(), "You clicked backup", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.delete:
-                Toast.makeText(getActivity(), "You clicked Delete", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.settings:
-                Toast.makeText(getActivity(), "You clicked Settings", Toast.LENGTH_SHORT).show();
                 break;
             default:
         }

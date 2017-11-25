@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -19,11 +20,15 @@ import com.example.sl.yigongbang.R;
 import com.example.sl.yigongbang.util.FruitAdapter;
 import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
 import com.example.sl.yigongbang.util.entity.Activity;
+import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
+import com.example.sl.yigongbang.util.entity.Volunteer;
 import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecordFragment extends BaseFragment{
     LinearLayout finishedLinear;
@@ -31,6 +36,9 @@ public class RecordFragment extends BaseFragment{
     private List<Activity>ActivityList=new ArrayList<Activity>();
     private FruitAdapter adapter;
     private RecyclerView recyclerView3;
+    private Volunteer volunteer;
+    private TextView finished;
+    private TextView unfinished;
     @Override
     protected void initView() {
     }
@@ -42,6 +50,7 @@ public class RecordFragment extends BaseFragment{
 
     private String [] record_finished={"1","2"};
     private String [] record_unfinished={"1","2"};
+    CircleImageView picture;
    // private ListView listView2;
     //private ListView listView1;
 
@@ -95,12 +104,20 @@ public class RecordFragment extends BaseFragment{
 //
 //        return array;
 //    }
+
+
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toolbar toolbar=(Toolbar)view.findViewById(R.id.toolbar11);
+        //Toolbar toolbar=(Toolbar)view.findViewById(R.id.toolbar11);
         //listView1=(ListView)view.findViewById(R.id.List_view1);
         //listView2=(ListView)view.findViewById(R.id.List_view2);
+
+        picture=(CircleImageView)view.findViewById(R.id.icon);
+
+        finished=(TextView)view.findViewById(R.id.finished) ;
+        unfinished=(TextView)view.findViewById(R.id.unfinished);
         finishedLinear=(LinearLayout)getActivity().findViewById(R.id.finished_record);
         finishedLinear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +135,14 @@ public class RecordFragment extends BaseFragment{
             }
         });
 
-        getDataFromServer();
+        Fragment1 fragment1 = new Fragment1();
+        getFragmentManager().beginTransaction().replace(R.id.record_container, fragment1).commit();
+
+        Log.e("us",String.valueOf(Global_Data.act_finished));
+
+        finished.setText(String.valueOf(Global_Data.act_finished)+"项");
+        unfinished.setText(String.valueOf(Global_Data.act_unfinished)+"项");
+
 //        recyclerView3=(RecyclerView)view.findViewById(R.id.recyclerview_3);
 //        GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列
 //        recyclerView3.setLayoutManager(layoutManager);//网格布局
@@ -131,26 +155,38 @@ public class RecordFragment extends BaseFragment{
 //
 //    }
 protected void getDataFromServer() {
-    OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getAll",
-            new OkHttpClientManager.ResultCallback<List<Activity>>()
+    OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_getInfo",
+            new OkHttpClientManager.ResultCallback<Volunteer>()
             {
                 @Override
                 public void onError(Request request, Exception e)
                 {
-                    Log.e("--------getData",e.toString());
-                    Toast.makeText(getContext(),"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+                    Log.e("--------getGlobaldata",e.toString());
+                    Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
                 }
                 @Override
-                public void onResponse(List<Activity> us)
+                public void onResponse(Volunteer us)
                 {
-                    ActivityList=us;
-                    for(Activity attribute : ActivityList) {
-                        Log.e("----Record Act_name",attribute.getActName());
+                    volunteer=us;
+                    Log.e("--------volunteer",volunteer.getNickName());
+                    Global_Data.vol_image=volunteer.getImage();
+                    Global_Data.vol_nickName=volunteer.getNickName();
+                    Global_Data.vol_address=volunteer.getAddress();
+                    Global_Data.vol_age=volunteer.getAge();
+                    Global_Data.vol_credit=volunteer.getCredit();
+                    Global_Data.vol_gender=volunteer.getGender();
+                    Global_Data.vol_id=volunteer.getId();
+                    Global_Data.vol_password=volunteer.getPassword();
+                    Global_Data.vol_phone=volunteer.getPhone();
+                    Global_Data.vol_realName=volunteer.getRealName();
+                    if(Global_Data.vol_image!=null){
+                        OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/icon/"+Global_Data.vol_image);
                     }
-//                    adapter=new FruitAdapter(ActivityList);
-//                    recyclerView3.setAdapter(adapter);//适配器实例与recyclerView控件关联
                 }
+
             });
+
+
 }
 
 }

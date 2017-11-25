@@ -6,9 +6,11 @@ import com.mob.MobSDK;
 
 /**
  * Created by abc on 2017/11/12.
+ * com.mob.MobApplication
  */
 
 public class Global_Data extends com.mob.MobApplication {
+
 
     //全局数据，主要存放volunteer的信息
     public static int vol_id;
@@ -22,6 +24,8 @@ public class Global_Data extends com.mob.MobApplication {
     public static Integer vol_credit;
     public static String vol_nickName;
     public static String sessionId;
+    public static int act_finished;
+    public static int act_unfinished;
 
 
     @Override

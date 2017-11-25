@@ -11,12 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sl.yigongbang.R;
 import com.example.sl.yigongbang.util.FruitAdapter;
 import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
 import com.example.sl.yigongbang.util.entity.Activity;
+import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
 import com.squareup.okhttp.Request;
 
@@ -25,9 +27,13 @@ import java.util.List;
 
 
 public class Fragment1 extends BaseFragment {
+
+
     private RecyclerView recyclerView1;
     private List<Activity>ActivityList=new ArrayList<Activity>();
     private FruitAdapter adapter;
+    private TextView textView;
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -61,9 +67,13 @@ public class Fragment1 extends BaseFragment {
                         ActivityList=us;
                         for(Activity attribute : ActivityList) {
                             Log.e("-----fragment1 Act_name",attribute.getActName());
+
                         }
-                    adapter=new FruitAdapter(ActivityList);
-                    recyclerView1.setAdapter(adapter);//适配器实例与recyclerView控件关联
+                        adapter=new FruitAdapter(ActivityList);
+                        recyclerView1.setAdapter(adapter);//适配器实例与recyclerView控件关联
+                        Global_Data.act_finished=us.size();
+                        Log.e("us:",String.valueOf(us.size()));
+                        textView.setText(String.valueOf(us.size()));
                     }
                 });
     }

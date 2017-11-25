@@ -47,6 +47,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Setting extends AppCompatActivity {
     private ImageView picture;
     SelectPicPopupWindow menuWindow;
@@ -59,9 +61,10 @@ public class Setting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        picture=(ImageView)findViewById(R.id.picture);
-
-        OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/"+Global_Data.vol_image);
+        if(Global_Data.vol_image!=null){
+            ImageView picture=(ImageView)findViewById(R.id.picture);
+            OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/icon/"+Global_Data.vol_image);
+        }
         Button button1=(Button)findViewById(R.id.button_exit);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
