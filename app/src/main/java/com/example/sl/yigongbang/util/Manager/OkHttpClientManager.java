@@ -645,6 +645,7 @@ public class OkHttpClientManager
         RequestBody requestBody = builder.build();
         return new Request.Builder()
                 .url(url)
+                .addHeader("cookie", Global_Data.sessionId)
                 .post(requestBody)
                 .build();
     }
