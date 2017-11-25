@@ -177,12 +177,16 @@ public class SignUp extends AppCompatActivity {
                     Intent it = new Intent(SignUp.this, SignIn.class);
                     startActivity(it);
                 }
+                else
+                    if(string.equals("用户名已存在"))
+                {
+                    Toast.makeText(SignUp.this,"用户名已存在",Toast.LENGTH_SHORT).show();
+                }
                 else{
                     Toast.makeText(SignUp.this,"注册失败，请再次尝试！",Toast.LENGTH_SHORT).show();
                 }
             }
         }, map);
     }
-
 }
 

@@ -18,6 +18,7 @@ import com.wx.goodview.GoodView;
 
 public class Detail extends AppCompatActivity {
 
+    public static final String FRUIT_ID="fruit_id";
     public static final String FRUIT_NAME="fruit_name";
     public static final String FRUIT_TIME="fruit_time";
     public static final String FRUIT_PLACE="fruit_place";
