@@ -66,9 +66,6 @@ public class SignUp extends AppCompatActivity {
         SMSSDK.registerEventHandler(new EventHandler() {
             @Override
             public void afterEvent(int event, int result, Object data) {
-                final boolean yanzheng;//确定是否已经注册
-                yanzheng=(Boolean) data;
-                Log.e("----data:",String.valueOf(yanzheng));
                 switch (event) {
                     case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
                         if (result == SMSSDK.RESULT_COMPLETE) {
@@ -92,12 +89,12 @@ public class SignUp extends AppCompatActivity {
                                 @Override
                                 public void run() {
 
-                                    if(yanzheng){
-                                        Toast.makeText(SignUp.this,"号码已经注册，请直接使用用户名密码登陆。",Toast.LENGTH_SHORT).show();
-                                    }else{
+//                                    if(yanzheng){
+//                                        Toast.makeText(SignUp.this,"号码已经注册，请直接使用用户名密码登陆。",Toast.LENGTH_SHORT).show();
+//                                    }else{
                                         Toast.makeText(SignUp.this,"发送成功,注意查收!",Toast.LENGTH_SHORT).show();
                                         get_code=true;
-                                    }
+//                                    }
 
                                 }
                             });
