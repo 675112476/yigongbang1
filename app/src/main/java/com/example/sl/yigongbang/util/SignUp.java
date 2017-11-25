@@ -66,22 +66,49 @@ public class SignUp extends AppCompatActivity {
         SMSSDK.registerEventHandler(new EventHandler() {
             @Override
             public void afterEvent(int event, int result, Object data) {
+                final boolean yanzheng;//确定是否已经注册
+                yanzheng=(Boolean) data;
+                Log.e("----data:",String.valueOf(yanzheng));
                 switch (event) {
                     case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
                         if (result == SMSSDK.RESULT_COMPLETE) {
                             Log.e("验证成功","-----");
-                            checked=true;
+                            getDataFromServer();
                         } else {
                             Log.e("验证失败","-----");
-                            checked=true;
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SignUp.this,"请输入正确的验证码",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
                         break;
                     case SMSSDK.EVENT_GET_VERIFICATION_CODE:
                         if (result == SMSSDK.RESULT_COMPLETE) {
                             Log.e("获取验证成功","-----");
-                            get_code=true;
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    if(yanzheng){
+                                        Toast.makeText(SignUp.this,"号码已经注册，请直接使用用户名密码登陆。",Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(SignUp.this,"发送成功,注意查收!",Toast.LENGTH_SHORT).show();
+                                        get_code=true;
+                                    }
+
+                                }
+                            });
                         } else {
                             Log.e("获取验证失败","-----");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SignUp.this,"发送失败,请检查网络和您的手机号是否正确！",Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                         break;
                 }
@@ -102,19 +129,21 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SMSSDK.getVerificationCode("86", new String(phone.getText().toString()));//发送短信验证码到手机号  86表示的是中国
-                if(get_code==true){
-                    Toast.makeText(SignUp.this,"发送成功,请耐心等待!",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(SignUp.this,"发送失败,请检查网络和您的手机号是否正确！",Toast.LENGTH_SHORT).show();
-                }
             }
         });
+        Log.e("----get_code",String.valueOf(get_code));
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SMSSDK.submitVerificationCode("86",new String(phone.getText().toString()), new String(yanzhengma.getText().toString()));//提交验证码  在eventHandler里面查看验证结果
-                if(checked){
+                Log.e("----checked",String.valueOf(checked));
+
+            }
+        });
+
+    }
+    public void getDataFromServer(){
+
 //                    OkHttpClient client=new OkHttpClient();
 //                    FormEncodingBuilder builder = new FormEncodingBuilder();
 //                    builder.add(new String("phone"),new String(phone.getText().toString()));
@@ -134,35 +163,29 @@ public class SignUp extends AppCompatActivity {
 //                    } catch (IOException e) {
 //                        Toast.makeText(SignUp.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
 //                    }
-                    Map<String,String> map=new HashMap<>();
-                    map.put(new String("phone"),new String (phone.getText().toString()));
-                    map.put(new String("password"),new String(password.getText().toString()));
-                    OkHttpClientManager.postAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_register", new OkHttpClientManager.ResultCallback<String>() {
-                        @Override
-                        public void onError(Request request, Exception e) {
+        Map<String,String> map=new HashMap<>();
+        map.put(new String("phone"),new String (phone.getText().toString()));
+        map.put(new String("password"),new String(password.getText().toString()));
+        OkHttpClientManager.postAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_register", new OkHttpClientManager.ResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Toast.makeText(SignUp.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+                Log.e("---",e.toString());
+            }
 
-                            Log.e("---",e.toString());
-                        }
-
-                        @Override
-                        public void onResponse(String string) {
-                            if(string.equals("注册成功")){
-                                Toast.makeText(SignUp.this,"注册成功请使用账号密码登录",Toast.LENGTH_SHORT).show();
-                                Intent it = new Intent(SignUp.this, SignIn.class);
-                                startActivity(it);
-                            }
-                            else{
-                                Toast.makeText(SignUp.this,"注册失败，请再次尝试！",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }, map);
-                }else{
-                    Toast.makeText(SignUp.this,"请输入正确的验证码",Toast.LENGTH_SHORT).show();
+            @Override
+            public void onResponse(String string) {
+                if(string.equals("注册成功")){
+                    Toast.makeText(SignUp.this,"注册成功请使用账号密码登录",Toast.LENGTH_SHORT).show();
+                    Intent it = new Intent(SignUp.this, SignIn.class);
+                    startActivity(it);
+                }
+                else{
+                    Toast.makeText(SignUp.this,"注册失败，请再次尝试！",Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        }, map);
     }
-
 
 }
 
