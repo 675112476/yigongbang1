@@ -2,6 +2,7 @@ package com.example.sl.yigongbang.util;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -141,52 +142,66 @@ public class SignUp extends AppCompatActivity {
     }
     public void getDataFromServer(){
 
-//                    OkHttpClient client=new OkHttpClient();
-//                    FormEncodingBuilder builder = new FormEncodingBuilder();
-//                    builder.add(new String("phone"),new String(phone.getText().toString()));
-//                    builder.add(new String("password"),new String(password.getText().toString()));
-//                    RequestBody requestBody = builder.build();
-//                    Request request=new Request.Builder().url(Ip.getIp() + "Volunteer_ssh/volunteer_register").post(requestBody).build();
-//                    try {
-//                        Response response=client.newCall(request).execute();
-//                        String string=response.body().toString();
-//                        if(string.equals("注册成功")){
-//                            Toast.makeText(SignUp.this,"注册成功，请使用电话号码和密码重新登陆！",Toast.LENGTH_LONG).show();
-//                            Intent it = new Intent(SignUp.this, LoginMain.class);
-//                            startActivity(it);
-//                        }else{
-//                            Toast.makeText(SignUp.this,"注册失败，请再次尝试！",Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (IOException e) {
-//                        Toast.makeText(SignUp.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
-//                    }
-        Map<String,String> map=new HashMap<>();
-        map.put(new String("phone"),new String (phone.getText().toString()));
-        map.put(new String("password"),new String(password.getText().toString()));
-        OkHttpClientManager.postAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_register", new OkHttpClientManager.ResultCallback<String>() {
-            @Override
-            public void onError(Request request, Exception e) {
-                Toast.makeText(SignUp.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
-                Log.e("---",e.toString());
-            }
+        OkHttpClient client=new OkHttpClient();
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        builder.add(new String("phone"),new String(phone.getText().toString()));
+        builder.add(new String("password"),new String(password.getText().toString()));
+        RequestBody requestBody = builder.build();
+        Request request=new Request.Builder().url(Ip.getIp() + "Volunteer_ssh/volunteer_register").post(requestBody).build();
+        try {
+            Response response=client.newCall(request).execute();
+            String string=response.body().string();
 
-            @Override
-            public void onResponse(String string) {
-                if(string.equals("注册成功")){
-                    Toast.makeText(SignUp.this,"注册成功请使用账号密码登录",Toast.LENGTH_SHORT).show();
-                    Intent it = new Intent(SignUp.this, SignIn.class);
-                    startActivity(it);
-                }
-                else
-                    if(string.equals("用户名已存在"))
-                {
-                    Toast.makeText(SignUp.this,"用户名已存在",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(SignUp.this,"注册失败，请再次尝试！",Toast.LENGTH_SHORT).show();
-                }
+            Log.e("----string",string);
+            if(string.equals("注册成功")){
+                Looper.prepare();
+                Toast.makeText(SignUp.this,"注册成功请使用账号密码登录",Toast.LENGTH_SHORT).show();
+                Intent it = new Intent(SignUp.this, SignIn.class);
+                startActivity(it);
+                Looper.loop();
+
+            } else
+                if(string.equals("用户名已存在"))
+            {
+                Looper.prepare();
+                Toast.makeText(SignUp.this,"用户名已存在",Toast.LENGTH_SHORT).show();
+                Looper.loop();
             }
-        }, map);
+            else{
+                Looper.prepare();
+                Toast.makeText(SignUp.this,"注册失败，请再次尝试！",Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+        } catch (IOException e) {
+            Toast.makeText(SignUp.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+        }
+//        Map<String,String> map=new HashMap<>();
+//        map.put(new String("phone"),new String (phone.getText().toString()));
+//        map.put(new String("password"),new String(password.getText().toString()));
+//        OkHttpClientManager.postAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_register", new OkHttpClientManager.ResultCallback<String>() {
+//            @Override
+//            public void onError(Request request, Exception e) {
+//                Toast.makeText(SignUp.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+//                Log.e("---",e.toString());
+//            }
+//
+//            @Override
+//            public void onResponse(String string) {
+//                if(string.equals("注册成功")){
+//                    Toast.makeText(SignUp.this,"注册成功请使用账号密码登录",Toast.LENGTH_SHORT).show();
+//                    Intent it = new Intent(SignUp.this, SignIn.class);
+//                    startActivity(it);
+//                }
+//                else
+//                    if(string.equals("用户名已存在"))
+//                {
+//                    Toast.makeText(SignUp.this,"用户名已存在",Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                    Toast.makeText(SignUp.this,"注册失败，请再次尝试！",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }, map);
     }
 }
 
