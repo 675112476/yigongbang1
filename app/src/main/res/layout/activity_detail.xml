@@ -62,17 +62,17 @@
                 android:orientation="horizontal"
                 android:gravity="right">
 
-                <ImageView
-                    android:id="@+id/goodview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="30dp"
-                    android:layout_toStartOf="@+id/favouriteview"
-                    android:src="@mipmap/good"
-                    android:clickable="true"
-                    android:onClick="good"
-                    />
+                <!--<ImageView-->
+                    <!--android:id="@+id/goodview"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginEnd="30dp"-->
+                    <!--android:layout_toStartOf="@+id/favouriteview"-->
+                    <!--android:src="@mipmap/good"-->
+                    <!--android:clickable="true"-->
+                    <!--android:onClick="good"-->
+                    <!--/>-->
 
                 <ImageView
                     android:id="@+id/favouriteview"
@@ -94,9 +94,10 @@
                 android:layout_gravity="bottom">
 
                 <Button
+                    android:id="@+id/join"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="我要报名"/>
+                    android:text="我要报名" />
 
 
             </LinearLayout>

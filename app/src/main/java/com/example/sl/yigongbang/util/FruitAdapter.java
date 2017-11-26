@@ -57,7 +57,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
                 intent.putExtra(Detail.FRUIT_NAME,fruit.getActName());//前一项是传出的数据到哪一活动哪一字符串常量 后一项是传入的数据是fruit类的哪一个属性
                 intent.putExtra(Detail.FRUIT_TIME,fruit.getActTime());
                 intent.putExtra(Detail.FRUIT_PLACE,fruit.getActLocation());
-                intent.putExtra(Detail.FRUIT_ID,fruit.getId());
+                intent.putExtra(Detail.FRUIT_ID,String.valueOf(fruit.getId()));
                 intent.putExtra(Detail.FRUIT_NUMBER,fruit.getCurPeople()+"/"+fruit.getMaxPeople());
                 mContext.startActivity(intent);
             }
