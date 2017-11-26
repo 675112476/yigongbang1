@@ -56,9 +56,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeFragment extends Fragment {
     private ConvenientBanner convenientBanner;
     private ArrayList<Integer> localImages = new ArrayList<Integer>();
-    private EditText searchEdit;
-    private EditText editText;
-    private SwipeRefreshLayout swipeRefresh;
     private DrawerLayout mDrawerLayout;
     private CircleImageView circleImageView;
     private List<Activity>ActivityList=new ArrayList<Activity>();
@@ -181,7 +178,7 @@ public class HomeFragment extends Fragment {
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);//悬浮按钮实例化 逻辑化
-        fab.setVisibility(View.INVISIBLE);
+        fab.setVisibility(View.VISIBLE);//
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

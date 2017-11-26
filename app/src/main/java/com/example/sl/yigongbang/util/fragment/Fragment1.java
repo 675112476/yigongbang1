@@ -32,7 +32,7 @@ public class Fragment1 extends BaseFragment {
     private RecyclerView recyclerView1;
     private List<Activity>ActivityList=new ArrayList<Activity>();
     private FruitAdapter adapter;
-    private TextView textView;
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -72,8 +72,6 @@ public class Fragment1 extends BaseFragment {
                         adapter=new FruitAdapter(ActivityList);
                         recyclerView1.setAdapter(adapter);//适配器实例与recyclerView控件关联
                         Global_Data.act_finished=us.size();
-                        Log.e("us:",String.valueOf(us.size()));
-                        textView.setText(String.valueOf(us.size()));
                     }
                 });
     }

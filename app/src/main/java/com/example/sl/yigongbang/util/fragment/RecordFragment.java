@@ -33,12 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RecordFragment extends BaseFragment{
     LinearLayout finishedLinear;
     LinearLayout unfinishedLinear;
-    private List<Activity>ActivityList=new ArrayList<Activity>();
-    private FruitAdapter adapter;
-    private RecyclerView recyclerView3;
     private Volunteer volunteer;
-    private TextView finished;
-    private TextView unfinished;
     @Override
     protected void initView() {
     }
@@ -116,8 +111,7 @@ public class RecordFragment extends BaseFragment{
 
         picture=(CircleImageView)view.findViewById(R.id.icon);
 
-        finished=(TextView)view.findViewById(R.id.finished) ;
-        unfinished=(TextView)view.findViewById(R.id.unfinished);
+
         finishedLinear=(LinearLayout)getActivity().findViewById(R.id.finished_record);
         finishedLinear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,8 +134,7 @@ public class RecordFragment extends BaseFragment{
 
         Log.e("us",String.valueOf(Global_Data.act_finished));
 
-        finished.setText(String.valueOf(Global_Data.act_finished)+"项");
-        unfinished.setText(String.valueOf(Global_Data.act_unfinished)+"项");
+
 
 //        recyclerView3=(RecyclerView)view.findViewById(R.id.recyclerview_3);
 //        GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列
