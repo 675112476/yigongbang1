@@ -74,7 +74,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         holder.ActivityName.setText("活动名称："+fruit.getActName());//得到具体的数据
         holder.ActivityTime.setText("活动时间："+fruit.getActTime());
         holder.AcitivityLocation.setText("活动地址："+fruit.getActLocation());
-        holder.imageView.setImageResource(R.drawable.ic_test_0);
+        holder.imageView.setImageResource(R.drawable.jiazai);
         OkHttpClientManager.displayImage(holder.imageView, Ip.getIp()+"Volunteer_ssh/images/activity/"+ fruit.getImage());
     }
 
