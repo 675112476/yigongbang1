@@ -148,35 +148,39 @@
                         android:descendantFocusability="blocksDescendants"
                         android:orientation="vertical" >
 
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginRight="20dp"
-                                android:textColor="#ff333333"
-                                android:textSize="20.0dip"
-                                android:text="请选择图片..."/>
+
+                            <ImageView
+                                android:id="@+id/act_image"
+                                android:layout_width="240dp"
+                                android:layout_height="120dp"
+                                android:layout_marginRight="30dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/act_bg" />
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_add"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:layout_marginRight="20dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
                                 android:src="@drawable/ic_add"/>
+
                         </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/act_image"
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="10dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
-                            android:src="@drawable/act_bg" />
+                            android:textColor="#ff333333"
+                            android:textSize="16.0dip"
+                            android:text="请选择图片..."/>
 
                     </LinearLayout>
 
