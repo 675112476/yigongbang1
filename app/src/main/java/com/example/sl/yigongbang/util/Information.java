@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.sl.yigongbang.R;
@@ -16,6 +17,8 @@ import com.squareup.okhttp.Request;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Information extends AppCompatActivity {
 
     Button act_release;
@@ -24,6 +27,9 @@ public class Information extends AppCompatActivity {
     EditText act_location;
     EditText act_person;
     EditText act_descript;
+    ImageView act_image;
+    CircleImageView img_add;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,21 +40,29 @@ public class Information extends AppCompatActivity {
         act_location=(EditText)findViewById(R.id.act_location);
         act_person=(EditText)findViewById(R.id.act_person);
         act_descript=(EditText)findViewById(R.id.act_descript);
+        act_image = (ImageView) findViewById(R.id.act_image);
+        img_add = (CircleImageView) findViewById(R.id.img_add);
         act_release.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendDataToServer();
             }
         });
+        img_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
     public void sendDataToServer(){
         Map<String,String> map=new HashMap<String,String>();
-        map.put("act_name",act_name.getText().toString());
-        map.put("act_time",act_time.getText().toString());
-        map.put("act_location",act_location.getText().toString());
-        map.put("act_person",act_person.getText().toString());
-        map.put("act_location",act_location.getText().toString());
-        OkHttpClientManager.postAsyn(Ip.getIp() + "Volunteer_ssh/activity_release ", new OkHttpClientManager.ResultCallback<String>() {
+        map.put("actName",act_name.getText().toString());
+        map.put("actTime",act_time.getText().toString());
+        map.put("actLocation",act_location.getText().toString());
+        map.put("actIntroduction",act_descript.getText().toString());
+        map.put("maxPeople",act_person.getText().toString());
+        OkHttpClientManager.postAsyn(Ip.getIp() + "Volunteer_ssh/activity_release", new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
                 Toast.makeText(Information.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT);
