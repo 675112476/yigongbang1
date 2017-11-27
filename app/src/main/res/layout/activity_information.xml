@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:androdi="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -56,7 +57,7 @@
                             android:id="@+id/act_name"
                             android:layout_width="270dp"
                             android:layout_height="wrap_content"
-                            android:hint="请输入你的学校" />
+                            android:hint="请输入活动名称" />
 
 
                     </LinearLayout>
@@ -67,83 +68,135 @@
                     <!-- 声音设置  -->
                     <LinearLayout
                         style="@style/leba_bg_bottom_layout">
-                        <TextView android:textSize="16.0dip" android:textColor="#ff333333" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:text="活动时间:" android:layout_weight="1.0" />
+                        <TextView android:textSize="16.0dip"
+                            android:textColor="#ff333333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12.0dip"
+                            android:text="活动时间:"
+                            android:layout_weight="1.0" />
 
                         <EditText
                             android:id="@+id/act_time"
                             android:layout_width="270dp"
                             android:layout_height="wrap_content"
-                            android:hint="请输入你的学号" />
+                            android:hint="请输入活动时间" />
                     </LinearLayout>
+                    <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
+
+                    <LinearLayout style="@style/leba_bg_top_layout">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12.0dip"
+                            android:layout_weight="1.0"
+                            android:text="活动地点:"
+                            android:textColor="#ff333333"
+                            android:textSize="16.0dip" />
+
+                        <EditText
+                            android:id="@+id/act_location"
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content"
+                            android:hint="请输入活动地点" />
+
+                    </LinearLayout>
+                    <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
+
+                    <LinearLayout style="@style/leba_bg_top_layout">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12.0dip"
+                            android:layout_weight="1.0"
+                            android:text="所需人数:"
+                            android:textColor="#ff333333"
+                            android:textSize="16.0dip" />
+
+                        <EditText
+                            android:id="@+id/act_person"
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content"
+                            android:hint="请输入所需人数" />
+
+                    </LinearLayout>
+
+                    <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
+
+                    <LinearLayout style="@style/leba_bg_top_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp">
+
+                        <EditText
+                            android:id="@+id/act_descript"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:minLines="6"
+                            android:hint="请输入活动介绍" />
+
+                    </LinearLayout>
+
+                    <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:descendantFocusability="blocksDescendants"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:textColor="#ff333333"
+                                android:textSize="20.0dip"
+                                android:text="请选择图片..."/>
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/img_add"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginRight="20dp"
+                                android:src="@drawable/ic_add"/>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/act_image"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:src="@drawable/act_bg" />
+
+                    </LinearLayout>
+
+                    <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
+
                 </LinearLayout>
-                <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
 
-                <LinearLayout style="@style/leba_bg_top_layout">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12.0dip"
-                        android:layout_weight="1.0"
-                        android:text="  活动地点:"
-                        android:textColor="#ff333333"
-                        android:textSize="16.0dip" />
-
-                    <EditText
-                        android:id="@+id/act_location"
-                        android:layout_width="270dp"
-                        android:layout_height="wrap_content"
-                        android:hint="请输入你的班级" />
-
-                </LinearLayout>
-                <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
-
-                <LinearLayout style="@style/leba_bg_top_layout">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12.0dip"
-                        android:layout_weight="1.0"
-                        android:text="  所需人数:"
-                        android:textColor="#ff333333"
-                        android:textSize="16.0dip" />
-
-                    <EditText
-                        android:id="@+id/act_person"
-                        android:layout_width="270dp"
-                        android:layout_height="wrap_content"
-                        android:hint="请输入你的姓名" />
-
-                </LinearLayout>
+                <Button
+                    android:id="@+id/fabu"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center|bottom"
+                    android:text="确定发布" />
             </LinearLayout>
+
         </ScrollView>
+
 
     </RelativeLayout>
 
-    <LinearLayout style="@style/leba_bg_top_layout"
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-
-        <EditText
-            android:id="@+id/act_descript"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入活动介绍" />
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-        <Button
-            android:id="@+id/fabu"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center|bottom"
-            android:text="确定发布" />
-    </LinearLayout>
 
 
 </LinearLayout>

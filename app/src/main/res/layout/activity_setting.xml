@@ -96,7 +96,6 @@
                     android:textColor="#ffaa0000"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12.0dip"
                     android:text="@string/blog_addr"
                     android:layout_gravity="center"
                     android:layout_weight="1.0"
