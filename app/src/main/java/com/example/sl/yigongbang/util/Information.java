@@ -48,7 +48,7 @@ public class Information extends AppCompatActivity {
         map.put("act_location",act_location.getText().toString());
         map.put("act_person",act_person.getText().toString());
         map.put("act_location",act_location.getText().toString());
-        OkHttpClientManager.postAsyn(Ip.getIp() + "Volunteer_ssh/activity_", new OkHttpClientManager.ResultCallback<String>() {
+        OkHttpClientManager.postAsyn(Ip.getIp() + "Volunteer_ssh/activity_release ", new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
                 Toast.makeText(Information.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT);

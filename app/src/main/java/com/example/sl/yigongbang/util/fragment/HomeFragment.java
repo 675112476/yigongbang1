@@ -221,7 +221,6 @@ public class HomeFragment extends Fragment {
         //设置手动影响（设置了该项无法手动切换）
         //设置翻页的效果，不需要翻页效果可用不设
         //setPageTransformer(Transformer.DefaultTransformer);   // 集成特效之后会有白屏现象，新版已经分离，如果要集成特效的例子可以看Demo的点击响应。
-
     }
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
@@ -259,6 +258,7 @@ public class HomeFragment extends Fragment {
             imageView.setImageResource(data);
         }
     }
+
 
     /**
      * 通过文件名获取资源id 例子：getResId("icon", R.drawable.class);

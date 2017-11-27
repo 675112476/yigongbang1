@@ -63,6 +63,11 @@ public  class SignIn extends AppCompatActivity {
             }
         });
     }
+    public void refresh(){
+        finish();
+        Intent intent=new Intent(SignIn.this,SignIn.class);
+        startActivity(intent);
+    }
     Runnable networkTask = new Runnable(){
         @Override
         public void run() {
@@ -85,19 +90,23 @@ public  class SignIn extends AppCompatActivity {
                 public void onResponse(Response response) throws IOException {
                     String info = response.body().string();
                     Headers headers = response.headers();
-                    List<String> cookies = headers.values("Set-Cookie");
-                    String session = cookies.get(0);
-                    String s = session.substring(0, session.indexOf(";"));
-                    Global_Data.sessionId = s;
-                    Log.e("-----session",s);
-                    Log.e("-----body",info);
+
                     if(info.equals("登录成功"))
                     {
 //                        Global_Data.vol_phone = phone;
+                        List<String> cookies = headers.values("Set-Cookie");
+                        String session = cookies.get(0);
+                        String s = session.substring(0, session.indexOf(";"));
+                        Global_Data.sessionId = s;
+                        Log.e("-----session",s);
+                        Log.e("-----body",info);
                         Intent im=new Intent(SignIn.this,MainActivity.class);
                         startActivity(im);
                     }else{
+                        Looper.prepare();
                         Toast.makeText(SignIn.this,"用户名或者密码错误，请重新输入！",Toast.LENGTH_SHORT).show();
+                        refresh();
+                        Looper.loop();
                     }
                 }
             });

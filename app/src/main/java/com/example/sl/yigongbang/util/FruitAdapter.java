@@ -71,7 +71,9 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Activity fruit=mFruitList.get(position);//获得当前项的fruit类 position是用来计数的
-        holder.ActivityName.setText("活动名称"+fruit.getActName());//得到具体的数据
+        holder.ActivityName.setText("活动名称："+fruit.getActName());//得到具体的数据
+        holder.ActivityTime.setText("活动时间："+fruit.getActTime());
+        holder.AcitivityLocation.setText("活动地址："+fruit.getActLocation());
         holder.imageView.setImageResource(R.drawable.ic_test_0);
         OkHttpClientManager.displayImage(holder.imageView, Ip.getIp()+"Volunteer_ssh/images/activity/"+ fruit.getImage());
     }
