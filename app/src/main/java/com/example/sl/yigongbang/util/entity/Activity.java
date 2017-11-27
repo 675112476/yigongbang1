@@ -9,6 +9,7 @@ public class Activity {
 	private String actTime;
 	private String actLocation;
 	private String actIntroduction;
+	private String image;
 	private Integer maxPeople;
 	private Integer curPeople;
 	private Boolean isValid;
@@ -48,6 +49,12 @@ public class Activity {
 	public void setActIntroduction(String actIntroduction) {
 		this.actIntroduction = actIntroduction;
 	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public Integer getMaxPeople() {
 		return maxPeople;
 	}
@@ -69,8 +76,7 @@ public class Activity {
 	@Override
 	public String toString() {
 		return "Activity [id=" + id + ", adminId=" + adminId + ", actName=" + actName + ", actTime=" + actTime
-				+ ", actLocation=" + actLocation + ", actIntroduction=" + actIntroduction + ", maxPeople=" + maxPeople
-				+ ", curPeople=" + curPeople + ", isValid=" + isValid + "]";
+				+ ", actLocation=" + actLocation + ", actIntroduction=" + actIntroduction + ", image=" + image
+				+ ", maxPeople=" + maxPeople + ", curPeople=" + curPeople + ", isValid=" + isValid + "]";
 	}
-
 }

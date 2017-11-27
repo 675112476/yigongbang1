@@ -57,7 +57,7 @@ public class FavouriteFragment extends BaseFragment{
     public String[] splitString(String string){
 
         string=string.substring(1,string.length()-1);
-        String[] array = string.split(",");
+        String[] array = string.split(", ");
         return array;
     }
 

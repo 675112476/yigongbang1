@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sl.yigongbang.R;
+import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
 import com.example.sl.yigongbang.util.entity.Activity;
+import com.example.sl.yigongbang.util.entity.Ip;
 
 import java.util.List;
 
@@ -59,6 +61,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
                 intent.putExtra(Detail.FRUIT_PLACE,fruit.getActLocation());
                 intent.putExtra(Detail.FRUIT_ID,String.valueOf(fruit.getId()));
                 intent.putExtra(Detail.FRUIT_NUMBER,fruit.getCurPeople()+"/"+fruit.getMaxPeople());
+                intent.putExtra(Detail.FRUIT_IMAGE,fruit.getImage());
                 mContext.startActivity(intent);
             }
         });
@@ -70,6 +73,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         Activity fruit=mFruitList.get(position);//获得当前项的fruit类 position是用来计数的
         holder.ActivityName.setText("活动名称"+fruit.getActName());//得到具体的数据
         holder.imageView.setImageResource(R.drawable.ic_test_0);
+        OkHttpClientManager.displayImage(holder.imageView, Ip.getIp()+"Volunteer_ssh/images/activity/"+ fruit.getImage());
     }
 
     @Override
