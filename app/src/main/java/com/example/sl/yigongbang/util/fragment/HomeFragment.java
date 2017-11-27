@@ -8,7 +8,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,13 +40,11 @@ import com.example.sl.yigongbang.util.entity.Ip;
 import com.example.sl.yigongbang.util.entity.Volunteer;
 import com.squareup.okhttp.Request;
 
-import org.w3c.dom.Text;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.microedition.khronos.opengles.GL;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -94,6 +90,32 @@ public class HomeFragment extends Fragment {
                 });
     }
 
+    protected void get_Properties(final FloatingActionButton fab){
+
+        OkHttpClientManager.getAsyn(Ip.getIp() + "Volunteer_ssh/volunteer_get_Property?vol_phone="+Global_Data.vol_phone, new OkHttpClientManager.ResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Log.e("--------getProperty",e.toString());
+                Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(String string) {
+                if(string.equals("true")){
+                    fab.setVisibility(View.VISIBLE);
+                    fab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), Information.class);
+                            startActivity(intent);
+                        }
+                    });
+                }else{
+                    fab.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+    }
     protected void getGlobal_Data(){
 
         OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_getInfo",
@@ -178,14 +200,8 @@ public class HomeFragment extends Fragment {
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);//悬浮按钮实例化 逻辑化
-        fab.setVisibility(View.VISIBLE);//
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Information.class);
-                startActivity(intent);
-            }
-        });
+        get_Properties(fab);
+
         getDataFromServer();
 
 

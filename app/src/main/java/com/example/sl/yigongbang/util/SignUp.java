@@ -71,7 +71,18 @@ public class SignUp extends AppCompatActivity {
                     case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
                         if (result == SMSSDK.RESULT_COMPLETE) {
                             Log.e("验证成功","-----");
-                            new Thread(netWorkTask).start();
+                            if(password.getText().toString().trim().equals("")){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(SignUp.this,"请输入密码",Toast.LENGTH_SHORT);
+                                    }
+                                });
+
+                            }else{
+                                new Thread(netWorkTask).start();
+                            }
+
                         } else {
                             Log.e("验证失败","-----");
                             runOnUiThread(new Runnable() {
@@ -133,9 +144,12 @@ public class SignUp extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SMSSDK.submitVerificationCode("86",new String(phone.getText().toString()), new String(yanzhengma.getText().toString()));//提交验证码  在eventHandler里面查看验证结果
                 Log.e("----checked",String.valueOf(checked));
-
+                if(password.getText().toString()!=null) {
+                    SMSSDK.submitVerificationCode("86", new String(phone.getText().toString()), new String(yanzhengma.getText().toString()));//提交验证码  在eventHandler里面查看验证结果
+                }else{
+                    Toast.makeText(SignUp.this,"请输入密码",Toast.LENGTH_SHORT);
+                }
             }
         });
 

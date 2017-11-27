@@ -77,7 +77,7 @@ public class Setting extends AppCompatActivity {
         headicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //实例化SelectPicPopupWindow
+                //实例化SelectPicPopupWindow 
                 menuWindow = new SelectPicPopupWindow(Setting.this, itemsOnClick);
                 //显示窗口
                 menuWindow.showAtLocation(Setting.this.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
@@ -337,7 +337,7 @@ public class Setting extends AppCompatActivity {
 
     }
     public Bitmap cutImage(Bitmap bitmap){
-        while(bitmap.getWidth()>1000||bitmap.getHeight()>1000){
+        while(bitmap.getWidth()>500||bitmap.getHeight()>500){
             Matrix matrix = new Matrix();
             matrix.setScale(0.5f, 0.5f);
             bitmap=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);

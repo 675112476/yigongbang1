@@ -111,11 +111,14 @@ public class RecordFragment extends BaseFragment{
 
         picture=(CircleImageView)view.findViewById(R.id.icon);
 
-
+        final TextView finshed=(TextView)view.findViewById(R.id.finished);
+        final TextView unfinshed=(TextView)view.findViewById(R.id.unfinished);
         finishedLinear=(LinearLayout)getActivity().findViewById(R.id.finished_record);
         finishedLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finshed.setTextSize(24);
+                unfinshed.setTextSize(20);
                 Fragment1 fragment1 = new Fragment1();
                 getFragmentManager().beginTransaction().replace(R.id.record_container, fragment1).commit();
             }
@@ -124,6 +127,8 @@ public class RecordFragment extends BaseFragment{
         unfinishedLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                unfinshed.setTextSize(24);
+                finshed.setTextSize(20);
                 Fragment2 fragment2 = new Fragment2();
                 getFragmentManager().beginTransaction().replace(R.id.record_container, fragment2).commit();
             }
