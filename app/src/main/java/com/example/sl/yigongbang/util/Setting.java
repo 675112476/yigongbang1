@@ -61,8 +61,8 @@ public class Setting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        picture=(ImageView)findViewById(R.id.picture);
         if(Global_Data.vol_image!=null){
-            ImageView picture=(ImageView)findViewById(R.id.picture);
             OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/icon/"+Global_Data.vol_image);
         }
         Button button1=(Button)findViewById(R.id.button_exit);
@@ -297,11 +297,11 @@ public class Setting extends AppCompatActivity {
                 Log.e("Width",Integer.toString(bitmap.getWidth()));
                 bitmap=cutImage(bitmap);
                 Log.e("Width",Integer.toString(bitmap.getWidth()));
+                picture.setImageBitmap(bitmap);
                 sendfile(compressImage(bitmap,imagePath,null));
             }catch (java.io.IOException e){
             }
 
-            picture.setImageBitmap(bitmap);
         }else{
             Toast.makeText(this, "未能找到图片", Toast.LENGTH_SHORT).show();
         }

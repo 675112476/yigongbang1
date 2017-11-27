@@ -116,7 +116,6 @@
                     android:layout_marginLeft="60dp"
                     android:inputType="textPassword"
                     android:background="#0000"
-                    android:maxLength="8"
                     android:padding="16dp"
                     android:drawableLeft="@drawable/password"
                     android:layout_marginRight="60dp"/>

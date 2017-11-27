@@ -428,7 +428,7 @@ public class OkHttpClientManager
         return getInstance()._postAsString(url, params);
     }
 
-    public static void postAsyn(String url, final ResultCallback callback, Param... params)
+    public static void postAsyn(String url, final ResultCallback callback, File outputImage, Map<String, String> map, Param... params)
     {
         getInstance()._postAsyn(url, callback, params);
     }
