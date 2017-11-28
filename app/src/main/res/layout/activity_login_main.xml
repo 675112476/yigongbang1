@@ -11,17 +11,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg" >
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/logo"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="70dp"
 
-
-
-            />
 
 
 
@@ -40,24 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
-
-                <com.example.sl.yigongbang.util.widget.MyTextView
-                    android:layout_above="@+id/curve1"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="&quot;You can’t buy HAPPINESS, but you can buy  SHOSE and that’s kind of the same thing&quot;"
-                    android:textSize="18dp"
-                    android:lineSpacingExtra="7dp"
-                    android:textColor="#fff"
-                    android:layout_gravity="bottom"
-
-                    />
-
-
-
-
             </LinearLayout>
 
 
