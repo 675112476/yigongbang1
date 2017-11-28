@@ -2,6 +2,7 @@ package com.example.sl.yigongbang.util.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.squareup.okhttp.Request;
 public class FavouriteFragment extends BaseFragment{
    private String[] data={"1","2","3"};
    private ListView listview;
+   private SwipeRefreshLayout mSwipeRefresh;
     @Override
     protected void initView() {
 
@@ -69,5 +71,13 @@ public class FavouriteFragment extends BaseFragment{
       //  ArrayAdapter<String>adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,data);
         //listView.setAdapter(adapter);
         //这里只是用了适配器adapter做了个例子 其实应该通过网络请求 申请义工信息 然后点击listView的响应按钮 跳转到收藏的义工信息的页面
+        mSwipeRefresh=(SwipeRefreshLayout)getActivity().findViewById(R.id.swipe_refresh3);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSwipeRefresh.setRefreshing(false);//设置刷新按钮停止转动
+
+            }
+        });
     }
 }

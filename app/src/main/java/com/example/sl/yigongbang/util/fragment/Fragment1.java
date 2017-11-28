@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class Fragment1 extends BaseFragment {
 
-
+    private SwipeRefreshLayout mSwipeRefresh;
     private RecyclerView recyclerView1;
     private List<Activity>ActivityList=new ArrayList<Activity>();
     private FruitAdapter adapter;
@@ -41,6 +42,15 @@ public class Fragment1 extends BaseFragment {
         recyclerView1=(RecyclerView)getActivity().findViewById(R.id.recyclerview_1);
         GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列
         recyclerView1.setLayoutManager(layoutManager);//网格布局
+        mSwipeRefresh=(SwipeRefreshLayout)getActivity().findViewById(R.id.swipe_refresh1);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSwipeRefresh.setRefreshing(false);//设置刷新按钮停止转动
+
+            }
+        });
+
     }
 
     @Override
