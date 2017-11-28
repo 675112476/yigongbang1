@@ -53,7 +53,7 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
     private boolean prepareGetData(){
-        return prepareGetData(false);
+        return prepareGetData(true);
     }
 
     /**

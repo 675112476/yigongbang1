@@ -2,7 +2,6 @@ package com.example.sl.yigongbang.util.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -223,10 +222,11 @@ public class HomeFragment extends Fragment {
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                getDataFromServer();
+                Toast.makeText(getContext(), "你点击了刷新", Toast.LENGTH_SHORT).show();
                 mSwipeRefresh.setRefreshing(false);//设置刷新按钮停止转动
             }
         });
-
         // adapter=new FruitAdapter(ActivityList);
         //recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
         convenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);

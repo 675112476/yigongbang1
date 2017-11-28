@@ -58,9 +58,18 @@
         <activity android:name=".util.SignIn"/>
         <activity android:name=".util.SignUp">
         </activity>
+        <activity
+            android:name="com.example.sl.yigongbang.util.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".util.LoginMain">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.DEFAULT"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
