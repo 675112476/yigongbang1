@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -53,6 +54,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class Information extends AppCompatActivity {
 
     Button act_release;
@@ -118,9 +120,11 @@ public class Information extends AppCompatActivity {
         });
 
         act_time.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
+                final DatePickerDialog datePickerDialog = new DatePickerDialog(Information.this);
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         //修改日历控件的年，月，日
@@ -141,8 +145,7 @@ public class Information extends AppCompatActivity {
                         TimePickerDialog timePickerDialog = new TimePickerDialog(Information.this,t,Calendar.HOUR_OF_DAY,Calendar.MINUTE,true);
                         timePickerDialog.show();
                     }
-                };
-                final DatePickerDialog datePickerDialog = new DatePickerDialog(Information.this,d,Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH);
+                });
                 datePickerDialog.show();
             }
         });
@@ -248,7 +251,6 @@ public class Information extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data)  {
         switch(requestCode){//请求码为选择项

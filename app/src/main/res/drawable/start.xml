@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
-        <color android:color="#ffbbbbbb"></color>
+        <color android:color="#ffffffff"></color>
     </item>
 
 
