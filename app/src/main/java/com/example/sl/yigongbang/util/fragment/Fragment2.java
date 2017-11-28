@@ -42,6 +42,7 @@ public class Fragment2 extends BaseFragment {
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                getDataFromServer();
                 mSwipeRefresh.setRefreshing(false);//设置刷新按钮停止转动
             }
         });
