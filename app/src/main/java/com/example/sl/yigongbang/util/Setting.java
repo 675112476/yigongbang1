@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,7 +74,7 @@ public class Setting extends AppCompatActivity {
 
             }
         });
-        TextView headicon=(TextView)findViewById(R.id.head_icon);
+        LinearLayout headicon=(LinearLayout) findViewById(R.id.head_icon);
         headicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +84,7 @@ public class Setting extends AppCompatActivity {
                 menuWindow.showAtLocation(Setting.this.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
             }
         });
-        TextView voicesetting=(TextView)findViewById(R.id.voice_setting);
+        LinearLayout voicesetting=(LinearLayout) findViewById(R.id.voice_setting);
         voicesetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +92,7 @@ public class Setting extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        TextView newssetting=(TextView)findViewById(R.id.news_setting);
+        LinearLayout newssetting=(LinearLayout) findViewById(R.id.news_setting);
         newssetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
