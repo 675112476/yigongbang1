@@ -1,7 +1,6 @@
 package com.example.sl.yigongbang.util;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentUris;
@@ -52,7 +51,6 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
 public class Information extends AppCompatActivity {
 
     Button act_release;
@@ -72,18 +70,6 @@ public class Information extends AppCompatActivity {
 
     Calendar dateAndTime = Calendar.getInstance(Locale.CHINA);
     DateFormat dateAndTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            //修改日历控件的年，月，日
-            //这里的year,monthOfYear,dayOfMonth的值与DatePickerDialog控件设置的最新值一致
-            dateAndTime.set(Calendar.YEAR, year);
-            dateAndTime.set(Calendar.MONTH, month);
-            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            //将页面TextView的显示更新为最新时间
-        }
-    };
 
 
     @Override
@@ -118,11 +104,10 @@ public class Information extends AppCompatActivity {
         });
 
         act_time.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                final DatePickerDialog datePickerDialog = new DatePickerDialog(Information.this);
-                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+
+                DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         //修改日历控件的年，月，日
@@ -140,10 +125,12 @@ public class Information extends AppCompatActivity {
                                 act_time.setText(dateAndTimeFormat.format(dateAndTime.getTime()));
                             }
                         };
-                        TimePickerDialog timePickerDialog = new TimePickerDialog(Information.this,t,Calendar.HOUR_OF_DAY,Calendar.MINUTE,true);
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(Information.this,t,dateAndTime.get(Calendar.HOUR_OF_DAY),dateAndTime.get(Calendar.MINUTE),true);
                         timePickerDialog.show();
+
                     }
-                });
+                };
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Information.this,d,dateAndTime.get(Calendar.YEAR),dateAndTime.get(Calendar.MONTH),dateAndTime.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -249,6 +236,7 @@ public class Information extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data)  {
         switch(requestCode){//请求码为选择项
