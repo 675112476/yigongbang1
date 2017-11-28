@@ -350,7 +350,7 @@ public class Information extends AppCompatActivity {
 
     }
     public Bitmap cutImage(Bitmap bitmap){
-        while(bitmap.getWidth()>1000||bitmap.getHeight()>1000){
+        while(bitmap.getWidth()>500||bitmap.getHeight()>500){
             Matrix matrix = new Matrix();
             matrix.setScale(0.5f, 0.5f);
             bitmap=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);

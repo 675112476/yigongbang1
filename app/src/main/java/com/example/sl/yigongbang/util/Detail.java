@@ -28,6 +28,7 @@ public class Detail extends AppCompatActivity {
     public static final String FRUIT_TIME="fruit_time";
     public static final String FRUIT_PLACE="fruit_place";
     public static final String FRUIT_NUMBER="fruit_number";
+    public static final String FRUIT_INRODUCTION="fruit_introduction";
     public static final String FRUIT_IMAGE="fruit_image";
     public static int actId;
     GoodView goodview;
@@ -46,6 +47,7 @@ public class Detail extends AppCompatActivity {
         String fruitTime=intent.getStringExtra(FRUIT_TIME);
         String fruitPlace=intent.getStringExtra(FRUIT_PLACE);
         String fruitNumber=intent.getStringExtra(FRUIT_NUMBER);
+        String fruitIntroduction=intent.getStringExtra(FRUIT_INRODUCTION);
         String fruitImage=intent.getStringExtra(FRUIT_IMAGE);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);//Toolbar实例化
         CollapsingToolbarLayout collapsingToolbarLayout=(CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);//Toolbar加强实例化
@@ -53,10 +55,13 @@ public class Detail extends AppCompatActivity {
         TextView detail_time=(TextView)findViewById(R.id.detail_time);
         TextView detail_place=(TextView)findViewById(R.id.detail_place);
         TextView detail_number=(TextView)findViewById(R.id.detail_number);
+        TextView detail_introduction=(TextView)findViewById(R.id.detail_introduction);
         ImageView detail_image = (ImageView) findViewById(R.id.detail_image);
         detail_name.setText("活动名称:"+fruitName);//这里应该由数据库实现记录和字段的调用 我这里是初始化的示例 此处应该有服务器的数据解析后数据库调用
         detail_time.setText("活动时间:"+fruitTime);
         detail_place.setText("活动地点:"+fruitPlace);
+        Log.e("---活动介绍",fruitIntroduction);
+        detail_introduction.setText("活动介绍："+fruitIntroduction);
         detail_number.setText("活动人数:"+fruitNumber);
         OkHttpClientManager.displayImage(detail_image,Ip.getIp()+"Volunteer_ssh/images/activity/"+ fruitImage);
         setSupportActionBar(toolbar);//用Toolbar替换Actionbar

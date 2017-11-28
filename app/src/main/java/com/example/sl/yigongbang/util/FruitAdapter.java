@@ -26,7 +26,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         TextView ActivityName;
         TextView ActivityTime;
         TextView AcitivityLocation;
-        TextView fruitNumber;
+        TextView ActivityNum;
         ImageView imageView;
 
         public ViewHolder(View view){
@@ -35,7 +35,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
             ActivityName =(TextView)view.findViewById(R.id.fruit_name);//控件实例化
             ActivityTime =(TextView)view.findViewById(R.id.fruit_time);
             AcitivityLocation =(TextView)view.findViewById(R.id.fruit_place);
-            fruitNumber=(TextView)view.findViewById(R.id.fruit_number);
+            ActivityNum =(TextView)view.findViewById(R.id.fruit_number);
             imageView=(ImageView)view.findViewById(R.id.imageview1);
         }
     }
@@ -61,6 +61,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
                 intent.putExtra(Detail.FRUIT_PLACE,fruit.getActLocation());
                 intent.putExtra(Detail.FRUIT_ID,String.valueOf(fruit.getId()));
                 intent.putExtra(Detail.FRUIT_NUMBER,fruit.getCurPeople()+"/"+fruit.getMaxPeople());
+                intent.putExtra(Detail.FRUIT_INRODUCTION,fruit.getActIntroduction());
                 intent.putExtra(Detail.FRUIT_IMAGE,fruit.getImage());
                 mContext.startActivity(intent);
             }

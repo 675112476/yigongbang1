@@ -200,7 +200,14 @@ public class HomeFragment extends Fragment {
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);//悬浮按钮实例化 逻辑化
-        get_Properties(fab);
+        //get_Properties(fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Information.class);
+                startActivity(intent);
+            }
+        });
 
         getDataFromServer();
 

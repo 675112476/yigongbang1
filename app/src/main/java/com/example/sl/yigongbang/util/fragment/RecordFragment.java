@@ -141,16 +141,19 @@ public class RecordFragment extends BaseFragment{
 
 
 
+
 //        recyclerView3=(RecyclerView)view.findViewById(R.id.recyclerview_3);
 //        GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列
 //        recyclerView3.setLayoutManager(layoutManager);//网格布局
     }
 
 //    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//
+//    public void onHiddenChanged(boolean hidden) {
+//        // TODO Auto-generated method stub
+//        super.onHiddenChanged(hidden);
+//        if (!hidden) {
+//            firstRefresh();
+//        }
 //    }
 protected void getDataFromServer() {
     OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/volunteer_getInfo",
