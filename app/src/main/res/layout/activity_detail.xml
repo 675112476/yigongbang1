@@ -93,21 +93,7 @@
                     android:clickable="true"
                     android:onClick="favourite"/>
             </LinearLayout>
-            <LinearLayout
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom">
 
-                <Button
-                    android:id="@+id/join"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="我要报名" />
-
-
-            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -144,5 +130,19 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
 
+        <Button
+            android:id="@+id/join"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="我要报名" />
+
+
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
