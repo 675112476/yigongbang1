@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,6 +55,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<Integer> localImages = new ArrayList<Integer>();
     private DrawerLayout mDrawerLayout;
     private CircleImageView circleImageView;
+    private SwipeRefreshLayout mSwipeRefresh;
     private List<Activity>ActivityList=new ArrayList<Activity>();
     private Volunteer volunteer;
     private FruitAdapter adapter;
@@ -216,6 +218,14 @@ public class HomeFragment extends Fragment {
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列
         recyclerView.setLayoutManager(layoutManager);//网格布局
+        mSwipeRefresh=(SwipeRefreshLayout)getActivity().findViewById(R.id.swipe_refresh);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getContext(), "你点击了刷新", Toast.LENGTH_SHORT).show();
+                mSwipeRefresh.setRefreshing(false);//设置刷新按钮停止转动
+            }
+        });
         // adapter=new FruitAdapter(ActivityList);
         //recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
         convenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
