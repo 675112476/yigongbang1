@@ -222,6 +222,7 @@ public class HomeFragment extends Fragment {
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                getDataFromServer();
                 Toast.makeText(getContext(), "你点击了刷新", Toast.LENGTH_SHORT).show();
                 mSwipeRefresh.setRefreshing(false);//设置刷新按钮停止转动
             }
