@@ -92,12 +92,12 @@ public class HomeFragment extends Fragment {
                 });
     }
 
-    protected void get_Properties(final FloatingActionButton fab){
+    protected void getAuthority(final FloatingActionButton fab){
 
-        OkHttpClientManager.getAsyn(Ip.getIp() + "Volunteer_ssh/volunteer_get_Property?vol_phone="+Global_Data.vol_phone, new OkHttpClientManager.ResultCallback<String>() {
+        OkHttpClientManager.getAsyn(Ip.getIp() + "Volunteer_ssh/volunteer_getAuthority", new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
-                Log.e("--------getProperty",e.toString());
+                Log.e("--------getAuthority",e.toString());
                 Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
             }
 
@@ -202,7 +202,7 @@ public class HomeFragment extends Fragment {
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);//悬浮按钮实例化 逻辑化
-        //get_Properties(fab);
+        getAuthority(fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
