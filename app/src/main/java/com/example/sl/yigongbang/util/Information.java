@@ -2,6 +2,8 @@ package com.example.sl.yigongbang.util;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,12 +11,16 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.icu.text.DateFormat;
+import android.icu.text.IDNA;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -25,8 +31,10 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.sl.yigongbang.R;
@@ -39,11 +47,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class Information extends AppCompatActivity {
 
     Button act_release;
@@ -61,6 +72,22 @@ public class Information extends AppCompatActivity {
     public static final int TAKE_PHOTO=1;//字符串常量值为1
     public static final int CHOOSE_PHOTO=2;
 
+    Calendar dateAndTime = Calendar.getInstance(Locale.CHINA);
+    DateFormat dateAndTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            //修改日历控件的年，月，日
+            //这里的year,monthOfYear,dayOfMonth的值与DatePickerDialog控件设置的最新值一致
+            dateAndTime.set(Calendar.YEAR, year);
+            dateAndTime.set(Calendar.MONTH, month);
+            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            //将页面TextView的显示更新为最新时间
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +100,7 @@ public class Information extends AppCompatActivity {
         act_descript=(EditText)findViewById(R.id.act_descript);
         act_image = (ImageView) findViewById(R.id.act_image);
         img_add = (CircleImageView) findViewById(R.id.img_add);
+
         act_release.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +116,37 @@ public class Information extends AppCompatActivity {
             public void onClick(View v) {
                 menuWindow = new SelectPicPopupWindow(Information.this, itemsOnClick);
                 menuWindow.showAtLocation(Information.this.findViewById(R.id.mainLayout), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
+            }
+        });
+
+        act_time.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                final DatePickerDialog datePickerDialog = new DatePickerDialog(Information.this);
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        //修改日历控件的年，月，日
+                        //这里的year,monthOfYear,dayOfMonth的值与DatePickerDialog控件设置的最新值一致
+                        dateAndTime.set(Calendar.YEAR, year);
+                        dateAndTime.set(Calendar.MONTH, month);
+                        dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
+
+                            //同DatePickerDialog控件
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                dateAndTime.set(Calendar.MINUTE, minute);
+                                act_time.setText(dateAndTimeFormat.format(dateAndTime.getTime()));
+                            }
+                        };
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(Information.this,t,Calendar.HOUR_OF_DAY,Calendar.MINUTE,true);
+                        timePickerDialog.show();
+                    }
+                });
+                datePickerDialog.show();
             }
         });
     }
@@ -109,21 +168,21 @@ public class Information extends AppCompatActivity {
         OkHttpClientManager.postAsyn(Ip.getIp() + "Volunteer_ssh/activity_release", new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
-                Toast.makeText(Information.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT);
+                Toast.makeText(Information.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onResponse(String string) {
 
                 if(string .equals("success")){
-                    Toast.makeText(Information.this,"发布活动成功",Toast.LENGTH_SHORT);
+                    Toast.makeText(Information.this,"发布活动成功",Toast.LENGTH_SHORT).show();
                 }else
                     if(string.equals("failed")){
-                        Toast.makeText(Information.this,"发布活动失败",Toast.LENGTH_SHORT);
+                        Toast.makeText(Information.this,"发布活动失败",Toast.LENGTH_SHORT).show();
                         Log.e("---Information_string",string);
                     }else{
                         Log.e("---Information_string",string);
-                        Toast.makeText(Information.this,"Error",Toast.LENGTH_SHORT);
+                        Toast.makeText(Information.this,"未选择图片",Toast.LENGTH_SHORT).show();
                     }
             }
         },outputImage,"file",params);
@@ -260,7 +319,7 @@ public class Information extends AppCompatActivity {
         return  file;
     }
 
-    @TargetApi(19)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private  void handleImageOnKitKat(Intent data){//全部解析成路径
         String imagePath=null;
         Uri uri=data.getData();
@@ -333,22 +392,7 @@ public class Information extends AppCompatActivity {
         }
         return  true;
     }
-    public void sendfile(File file) throws IOException {
-        OkHttpClientManager.postAsyn(Ip.getIp()+"Volunteer_ssh/activity_uploadImage", new OkHttpClientManager.ResultCallback<String>() {
-            @Override
-            public void onError(Request request, Exception e) {
 
-                Log.e("----send_file_Failed",e.toString());
-            }
-
-            @Override
-            public void onResponse(String string) {
-
-                Log.e("----send_file_success",string);
-            }
-        },file,"file");
-
-    }
     public Bitmap cutImage(Bitmap bitmap){
         while(bitmap.getWidth()>500||bitmap.getHeight()>500){
             Matrix matrix = new Matrix();
