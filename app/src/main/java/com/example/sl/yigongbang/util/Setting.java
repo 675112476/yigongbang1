@@ -65,7 +65,9 @@ public class Setting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         picture=(ImageView)findViewById(R.id.picture);
-        if(Global_Data.vol_image!=null){
+        if(Global_Data.vol_image.trim().equals(""))
+        {
+        }else{
             OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/icon/"+Global_Data.vol_image);
         }
         Button button1=(Button)findViewById(R.id.button_exit);

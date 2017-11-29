@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">YiGongBang</string>
+    <string name="app_name">义工帮</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->

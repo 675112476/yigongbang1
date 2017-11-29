@@ -146,7 +146,10 @@ public class HomeFragment extends Fragment {
                         Global_Data.vol_realName=volunteer.getRealName();
                         Nick_name=(TextView)headerView.findViewById(R.id.nick_name);
                         Nick_name.setText(Global_Data.vol_nickName);
-                        if(Global_Data.vol_image!=null){
+                        if(Global_Data.vol_image.trim().equals(""))
+                        {
+                        }
+                        else{
                             CircleImageView picture=(CircleImageView)headerView.findViewById(R.id.icon_image);
                             OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/icon/"+Global_Data.vol_image);
                         }

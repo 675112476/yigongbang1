@@ -180,7 +180,9 @@ protected void getDataFromServer() {
                     Global_Data.vol_password=volunteer.getPassword();
                     Global_Data.vol_phone=volunteer.getPhone();
                     Global_Data.vol_realName=volunteer.getRealName();
-                    if(Global_Data.vol_image!=null){
+                    if(Global_Data.vol_image.trim().equals(""))
+                    {
+                    }else{
                         OkHttpClientManager.displayImage(picture,Ip.getIp()+"Volunteer_ssh/images/icon/"+Global_Data.vol_image);
                     }
                 }
