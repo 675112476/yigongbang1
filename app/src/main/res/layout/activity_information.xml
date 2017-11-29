@@ -51,7 +51,7 @@
                             android:layout_weight="1.0"
                             android:text="活动名称:"
                             android:textColor="#ff333333"
-                            android:textSize="16.0dip" />
+                            android:textSize="14.0dip" />
 
                         <EditText
                             android:id="@+id/act_name"
@@ -68,7 +68,7 @@
                     <!-- 声音设置  -->
                     <LinearLayout
                         style="@style/leba_bg_bottom_layout">
-                        <TextView android:textSize="16.0dip"
+                        <TextView android:textSize="14.0dip"
                             android:textColor="#ff333333"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                             android:layout_weight="1.0"
                             android:text="活动地点:"
                             android:textColor="#ff333333"
-                            android:textSize="16.0dip" />
+                            android:textSize="14.0dip" />
 
                         <EditText
                             android:id="@+id/act_location"
@@ -111,11 +111,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12.0dip"
+                            android:layout_marginLeft="14.0dip"
                             android:layout_weight="1.0"
                             android:text="所需人数:"
                             android:textColor="#ff333333"
-                            android:textSize="16.0dip" />
+                            android:textSize="14.0dip" />
 
                         <EditText
                             android:id="@+id/act_person"
