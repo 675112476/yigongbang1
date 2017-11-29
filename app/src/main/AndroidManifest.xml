@@ -55,8 +55,10 @@
         <activity android:name=".util.MainActivity"/>
         <activity android:name=".util.VoiceSetting"/>
         <activity android:name=".util.NewsSetting"/>
-        <activity android:name=".util.SignIn"/>
-        <activity android:name=".util.SignUp">
+        <activity android:name=".util.SignIn"
+                  android:theme="@style/BlankActivityTheme"/>
+        <activity android:name=".util.SignUp"
+                  android:theme="@style/BlankActivityTheme">
         </activity>
         <activity
             android:name="com.example.sl.yigongbang.util.SplashActivity"
@@ -67,12 +69,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".util.LoginMain">
+        <activity android:name=".util.LoginMain"
+            android:theme="@style/BlankActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
 
 

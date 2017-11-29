@@ -45,6 +45,8 @@
     <style name="leba_bg_mid_layout" parent="@style/leba_bg_base_layout">
         <item name="android:background">@drawable/leba_bg_mid_selector</item>
     </style>
+    <style name="BlankActivityTheme." parent="AppTheme">
+    </style>
 
 
     <style name="leba_bg_bottom_layout" parent="@style/leba_bg_base_layout">

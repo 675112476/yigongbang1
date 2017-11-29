@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
+                android:fitsSystemWindows="true"
     >
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/signupbg" >
+        android:background="@drawable/signupbg"
+        android:fitsSystemWindows="true">
 
         <ImageView
             android:id="@+id/logo"
@@ -181,24 +182,30 @@
             android:layout_marginLeft="110dp"
             />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+        <com.example.sl.yigongbang.util.widget.MyTextView
+            android:id="@+id/signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect"
+            android:text="注册"
+            android:textSize="20dp"
+            android:textColor="#9e3d41"
+            android:gravity="center"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:padding="13dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="18dp"
+
+            />
+        </LinearLayout>
     </FrameLayout>
 
-    <com.example.sl.yigongbang.util.widget.MyTextView
-        android:id="@+id/signin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rect"
-        android:text="注册"
-        android:textSize="20dp"
-        android:textColor="#9e3d41"
-        android:gravity="center"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:padding="13dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="18dp"
-
-        />
 
 
 
@@ -206,4 +213,4 @@
 
 
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
