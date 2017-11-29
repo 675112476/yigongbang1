@@ -12,18 +12,6 @@
         android:background="@drawable/signupbg"
         android:fitsSystemWindows="true">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:src="@drawable/signuplogo"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="70dp"
-
-
-
-            />
-
 
 
         <LinearLayout

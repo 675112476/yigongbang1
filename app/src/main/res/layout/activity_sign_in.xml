@@ -12,18 +12,6 @@
         android:background="@drawable/signinbg"
         android:fitsSystemWindows="true">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:src="@drawable/signinlogo"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="70dp"
-
-
-
-            />
-
 
 
         <LinearLayout
@@ -83,7 +71,7 @@
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
+                    android:hint="手机号"
                     android:textColorHint="@color/signintext"
                     android:textColor="@color/signintext"
                     android:layout_marginLeft="60dp"
@@ -111,7 +99,7 @@
                     android:drawablePadding="38dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="密码"
                     android:textColorHint="@color/signintext"
                     android:textColor="@color/signintext"
                     android:layout_marginLeft="60dp"

@@ -2,6 +2,7 @@ package com.example.sl.yigongbang.util;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 
 import com.example.sl.yigongbang.R;
 import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
+import com.example.sl.yigongbang.util.Manager.SystemUtils;
 import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
 import com.example.sl.yigongbang.util.fragment.HomeFragment;
@@ -184,47 +186,53 @@ public class Setting extends AppCompatActivity {
 
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data)  {
-        switch(requestCode){//请求码为选择项
-            case TAKE_PHOTO:
-                if (resultCode==RESULT_OK){//拍照成功的话
-                    try{
-                        //将拍摄的照片显示出来
-                        //pa*******
-                        Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        Log.e("拍照Width",Integer.toString(bitmap.getWidth()));
-                        bitmap=cutImage(bitmap);
-                        Log.e("拍照Width",Integer.toString(bitmap.getWidth()));
-                        try{
+        if (requestCode == CHOOSE_PHOTO && resultCode == RESULT_OK){
+            if (SystemUtils.isMIUI()){
+                setPhotoForMiuiSystem(data);
+            }else {
+                switch(requestCode){//请求码为选择项
+                    case TAKE_PHOTO:
+                        if (resultCode==RESULT_OK){//拍照成功的话
+                            try{
+                                //将拍摄的照片显示出来
+                                //pa*******
+                                Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                                Log.e("拍照Width",Integer.toString(bitmap.getWidth()));
+                                bitmap=cutImage(bitmap);
+                                Log.e("拍照Width",Integer.toString(bitmap.getWidth()));
+                                try{
 
-                            File file=saveMyBitmap(bitmap);
-                            sendfile(file);
-                        }catch (java.io.IOException e){
+                                    File file=saveMyBitmap(bitmap);
+                                    sendfile(file);
+                                }catch (java.io.IOException e){
 
-                        }
+                                }
 
-                        picture.setImageBitmap(bitmap);
-                        //将URI对象变成最基本的Bitmap对象 指定分辨率
+                                picture.setImageBitmap(bitmap);
+                                //将URI对象变成最基本的Bitmap对象 指定分辨率
 //                        Intent intent2=new Intent(Setting.this,HomeFragment.class);
 //                        intent2.putExtra("bitmap",bitmap);
 //                        startActivity(intent2);
-                        //逻辑控制控件显示,由于控件XML在别的活动页面 所以要传递数据
-                    }catch(FileNotFoundException e){
-                        e.printStackTrace();//如果没有文件或者磁盘控件不够 抛出异常信息
-                    }
+                                //逻辑控制控件显示,由于控件XML在别的活动页面 所以要传递数据
+                            }catch(FileNotFoundException e){
+                                e.printStackTrace();//如果没有文件或者磁盘控件不够 抛出异常信息
+                            }
+                        }
+                        break;
+                    case CHOOSE_PHOTO:
+                        if(resultCode==RESULT_OK){
+                            //判断手机系统版本号
+                            if (Build.VERSION.SDK_INT>=19){
+                                handleImageOnKitKat(data);
+                            }else{//4.4以下版本使用这个方法处理图片
+                                handleImageOnKitKat(data);
+                            }
+                        }
+                        break;
+                    default:
+                        break;
                 }
-                break;
-            case CHOOSE_PHOTO:
-                if(resultCode==RESULT_OK){
-                    //判断手机系统版本号
-                    if (Build.VERSION.SDK_INT>=19){
-                        handleImageOnKitKat(data);
-                    }else{//4.4以下版本使用这个方法处理图片
-                        handleImageOnKitKat(data);
-                    }
-                }
-                break;
-            default:
-                break;
+            }
         }
     }
     public File saveMyBitmap(Bitmap mBitmap){
@@ -356,5 +364,29 @@ public class Setting extends AppCompatActivity {
         bos.flush();
         bos.close();
         return myCaptureFile;
+    }
+    private void setPhotoForMiuiSystem(Intent data) {
+        Uri localUri = data.getData();
+        String scheme = localUri.getScheme();
+        String imagePath = "";
+        if("content".equals(scheme)){
+            String[] filePathColumns = {MediaStore.Images.Media.DATA};
+            Cursor c = getContentResolver().query(localUri, filePathColumns, null, null, null);
+            c.moveToFirst();
+            int columnIndex = c.getColumnIndex(filePathColumns[0]);
+            imagePath = c.getString(columnIndex);
+            c.close();
+        }else if("file".equals(scheme)){//小米4选择云相册中的图片是根据此方法获得路径
+            imagePath = localUri.getPath();
+        }
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        bitmap=cutImage(bitmap);
+        picture.setImageBitmap(bitmap);
+        File file=saveMyBitmap(bitmap);
+        try {
+            sendfile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

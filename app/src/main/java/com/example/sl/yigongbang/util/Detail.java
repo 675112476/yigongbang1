@@ -121,6 +121,7 @@ public class Detail extends AppCompatActivity {
 
             @Override
             public void onResponse(String string) {
+                Log.e("报名",string);
                 if(string.equals("joined")){
                     button.setText("取消报名");
                     isJoined=true;

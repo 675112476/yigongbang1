@@ -161,6 +161,7 @@ public class Information extends AppCompatActivity {
 
                 if(string .equals("success")){
                     Toast.makeText(Information.this,"发布活动成功",Toast.LENGTH_SHORT).show();
+                    finish();
                 }else
                     if(string.equals("failed")){
                         Toast.makeText(Information.this,"发布活动失败",Toast.LENGTH_SHORT).show();
