@@ -129,10 +129,6 @@ public class Detail extends AppCompatActivity {
                 {
                     //Toast.makeText(Detail.this,"unjoined！",Toast.LENGTH_SHORT).show();
                     isJoined=false;
-                }else if(string.equals("overpeople")){
-                    button.setText("人数已满");
-                    button.setClickable(false);
-                    button.setBackgroundColor(Color.parseColor("#ffd5d5d5"));
                 }
             }
         });
@@ -153,7 +149,13 @@ public class Detail extends AppCompatActivity {
                     isJoined=true;
                     Toast.makeText(Detail.this,"报名成功！",Toast.LENGTH_SHORT).show();
 
-                }else{
+                }else if(string.equals("overpeople")){
+//                    button.setText("人数已满");
+//                    button.setClickable(false);
+//                    button.setBackgroundColor(Color.parseColor("#ffd5d5d5"));
+                    Toast.makeText(Detail.this,"人数已满！",Toast.LENGTH_SHORT).show();
+                }
+                else{
                     Toast.makeText(Detail.this,"报名失败！",Toast.LENGTH_SHORT).show();
                 }
 
