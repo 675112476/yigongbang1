@@ -1,6 +1,7 @@
 package com.example.sl.yigongbang.util;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,10 @@ import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
 import com.squareup.okhttp.Request;
 import com.wx.goodview.GoodView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Detail extends AppCompatActivity {
 
@@ -74,18 +79,35 @@ public class Detail extends AppCompatActivity {
         ImageView view=(ImageView)findViewById(R.id.favouriteview);
         get_collected(view);
         Join=(Button)findViewById(R.id.join);
-        get_joined(Join);
-        Join.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isJoined==true){
-                    cancel_join((Button) view);
-                }else
-                    if(isJoined==false){
-                    join((Button)view);
-                }
+        try{
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = df.parse(fruitTime);
+            SimpleDateFormat    formatter    =   new    SimpleDateFormat    ("yyyy年MM月dd日    HH:mm:ss     ");
+            Date    curDate    =   new    Date(System.currentTimeMillis());//获取当前时间
+            if(date.getTime()<= curDate.getTime()){
+                //活动已过期
+                Join.setText("活动已结束");
+                Join.setClickable(false);
+                Join.setBackgroundColor(Color.parseColor("#ffd5d5d5"));
             }
-        });
+        else{
+                get_joined(Join);
+                Join.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(isJoined==true){
+                            cancel_join((Button) view);
+                        }else
+                        if(isJoined==false){
+                            join((Button)view);
+                        }
+                    }
+                });
+            }
+        }catch (Exception e){
+            Log.e("-----获取事件失败",e.toString());
+        }
+
     }
 
     public void get_joined(final Button button){
@@ -107,6 +129,10 @@ public class Detail extends AppCompatActivity {
                 {
                     //Toast.makeText(Detail.this,"unjoined！",Toast.LENGTH_SHORT).show();
                     isJoined=false;
+                }else if(string.equals("overpeople")){
+                    button.setText("人数已满");
+                    button.setClickable(false);
+                    button.setBackgroundColor(Color.parseColor("#ffd5d5d5"));
                 }
             }
         });
