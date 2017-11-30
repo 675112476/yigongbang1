@@ -188,25 +188,24 @@ public class Setting extends AppCompatActivity {
 
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data)  {
-        if (requestCode == CHOOSE_PHOTO && resultCode == RESULT_OK){
-            if (SystemUtils.isMIUI()){
+        if ( requestCode ==CHOOSE_PHOTO&&resultCode == RESULT_OK&&SystemUtils.isMIUI()) {
                 setPhotoForMiuiSystem(data);
-            }else {
-                switch(requestCode){//请求码为选择项
+            } else {
+                switch (requestCode) {//请求码为选择项
                     case TAKE_PHOTO:
-                        if (resultCode==RESULT_OK){//拍照成功的话
-                            try{
+                        if (resultCode == RESULT_OK) {//拍照成功的话
+                            try {
                                 //将拍摄的照片显示出来
                                 //pa*******
-                                Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                                Log.e("拍照Width",Integer.toString(bitmap.getWidth()));
-                                bitmap=cutImage(bitmap);
-                                Log.e("拍照Width",Integer.toString(bitmap.getWidth()));
-                                try{
+                                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                                Log.e("拍照Width", Integer.toString(bitmap.getWidth()));
+                                bitmap = cutImage(bitmap);
+                                Log.e("拍照Width", Integer.toString(bitmap.getWidth()));
+                                try {
 
-                                    File file=saveMyBitmap(bitmap);
+                                    File file = saveMyBitmap(bitmap);
                                     sendfile(file);
-                                }catch (java.io.IOException e){
+                                } catch (java.io.IOException e) {
 
                                 }
 
@@ -216,17 +215,17 @@ public class Setting extends AppCompatActivity {
 //                        intent2.putExtra("bitmap",bitmap);
 //                        startActivity(intent2);
                                 //逻辑控制控件显示,由于控件XML在别的活动页面 所以要传递数据
-                            }catch(FileNotFoundException e){
+                            } catch (FileNotFoundException e) {
                                 e.printStackTrace();//如果没有文件或者磁盘控件不够 抛出异常信息
                             }
                         }
                         break;
                     case CHOOSE_PHOTO:
-                        if(resultCode==RESULT_OK){
+                        if (resultCode == RESULT_OK) {
                             //判断手机系统版本号
-                            if (Build.VERSION.SDK_INT>=19){
+                            if (Build.VERSION.SDK_INT >= 19) {
                                 handleImageOnKitKat(data);
-                            }else{//4.4以下版本使用这个方法处理图片
+                            } else {//4.4以下版本使用这个方法处理图片
                                 handleImageOnKitKat(data);
                             }
                         }
@@ -235,7 +234,7 @@ public class Setting extends AppCompatActivity {
                         break;
                 }
             }
-        }
+
     }
     public File saveMyBitmap(Bitmap mBitmap){
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
