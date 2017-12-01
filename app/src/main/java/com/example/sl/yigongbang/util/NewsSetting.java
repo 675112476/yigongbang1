@@ -1,10 +1,13 @@
 package com.example.sl.yigongbang.util;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -33,6 +36,23 @@ public class NewsSetting extends AppCompatActivity {
 
             }
         });
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar4);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                Intent intent=new Intent(NewsSetting.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            default:
+                break;
+        }
+        return  true;
     }
 }

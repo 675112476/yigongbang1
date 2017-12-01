@@ -3,11 +3,14 @@ package com.example.sl.yigongbang.util.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -139,9 +142,10 @@ public class RecordFragment extends BaseFragment{
 
         Log.e("us",String.valueOf(Global_Data.act_finished));
 
-
-
-
+        //Toolbar toolbar=(Toolbar)getActivity().findViewById(R.id.toolbar_record);
+        //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
 //        recyclerView3=(RecyclerView)view.findViewById(R.id.recyclerview_3);
 //        GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列
 //        recyclerView3.setLayoutManager(layoutManager);//网格布局

@@ -3,7 +3,9 @@ package com.example.sl.yigongbang.util;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,6 +60,23 @@ public class PersonalInfo extends AppCompatActivity {
                 saveInfo();
             }
         });
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                Intent intent=new Intent(PersonalInfo.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            default:
+                break;
+        }
+        return  true;
     }
 
     private void saveInfo(){
