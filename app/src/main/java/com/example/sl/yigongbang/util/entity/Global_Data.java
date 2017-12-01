@@ -26,6 +26,8 @@ public class Global_Data extends com.mob.MobApplication {
     public static String sessionId;
     public static int act_finished;
     public static int act_unfinished;
+    public static int act_curnum;
+    public static int act_maxnum;
 
 
     @Override

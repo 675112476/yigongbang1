@@ -61,6 +61,8 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
                 intent.putExtra(Detail.FRUIT_PLACE,fruit.getActLocation());
                 intent.putExtra(Detail.FRUIT_ID,String.valueOf(fruit.getId()));
                 intent.putExtra(Detail.FRUIT_NUMBER,fruit.getCurPeople()+"/"+fruit.getMaxPeople());
+                intent.putExtra("curnum",String.valueOf(fruit.getCurPeople()));
+                intent.putExtra("maxnum",String.valueOf(fruit.getMaxPeople()));
                 intent.putExtra(Detail.FRUIT_INRODUCTION,fruit.getActIntroduction());
                 intent.putExtra(Detail.FRUIT_IMAGE,fruit.getImage());
                 mContext.startActivity(intent);

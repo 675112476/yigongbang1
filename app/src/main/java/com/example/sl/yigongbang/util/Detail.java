@@ -40,6 +40,8 @@ public class Detail extends AppCompatActivity {
     Button Join;
     boolean isCollected;
     boolean isJoined;
+    TextView detail_number;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +56,14 @@ public class Detail extends AppCompatActivity {
         String fruitNumber=intent.getStringExtra(FRUIT_NUMBER);
         String fruitIntroduction=intent.getStringExtra(FRUIT_INRODUCTION);
         String fruitImage=intent.getStringExtra(FRUIT_IMAGE);
+        Global_Data.act_curnum=Integer.valueOf(intent.getStringExtra("curnum"));
+        Global_Data.act_maxnum=Integer.valueOf(intent.getStringExtra("maxnum"));
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);//Toolbar实例化
         CollapsingToolbarLayout collapsingToolbarLayout=(CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);//Toolbar加强实例化
         TextView detail_name=(TextView)findViewById(R.id.detail_name);
         TextView detail_time=(TextView)findViewById(R.id.detail_time);
         TextView detail_place=(TextView)findViewById(R.id.detail_place);
-        TextView detail_number=(TextView)findViewById(R.id.detail_number);
+        detail_number=(TextView)findViewById(R.id.detail_number);
         TextView detail_introduction=(TextView)findViewById(R.id.detail_introduction);
         ImageView detail_image = (ImageView) findViewById(R.id.detail_image);
         detail_name.setText("活动名称:"+fruitName);//这里应该由数据库实现记录和字段的调用 我这里是初始化的示例 此处应该有服务器的数据解析后数据库调用
@@ -148,7 +152,8 @@ public class Detail extends AppCompatActivity {
                     button.setText("取消报名");
                     isJoined=true;
                     Toast.makeText(Detail.this,"报名成功！",Toast.LENGTH_SHORT).show();
-
+                    Global_Data.act_curnum++;
+                    detail_number.setText("活动人数:"+Global_Data.act_curnum+"/"+Global_Data.act_maxnum);
                 }else if(string.equals("overpeople")){
 //                    button.setText("人数已满");
 //                    button.setClickable(false);
@@ -175,6 +180,8 @@ public class Detail extends AppCompatActivity {
             public void onResponse(String string) {
                 if(string.equals("canceljoined")){
                     button.setText("我要报名");
+                    Global_Data.act_curnum--;
+                    detail_number.setText("活动人数:"+Global_Data.act_curnum+"/"+Global_Data.act_maxnum);
                     isJoined=false;
                     Toast.makeText(Detail.this,"取消报名成功！",Toast.LENGTH_SHORT).show();
                 }else{
