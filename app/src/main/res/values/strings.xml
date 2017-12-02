@@ -14,6 +14,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
     <string name="blog_addr">退出登录</string>
     <string name="title_home">主页</string>
     <string name="title_message">记录</string>

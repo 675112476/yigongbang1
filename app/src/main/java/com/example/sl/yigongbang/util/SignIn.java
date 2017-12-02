@@ -83,12 +83,16 @@ public  class SignIn extends AppCompatActivity {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
+                    Looper.prepare();
                     Toast.makeText(SignIn.this,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+                    refresh();
+                    Looper.loop();
                 }
 
                 @Override
                 public void onResponse(Response response) throws IOException {
                     String info = response.body().string();
+                    Log.e("info",info);
                     Headers headers = response.headers();
 
                     if(info.equals("登录成功"))

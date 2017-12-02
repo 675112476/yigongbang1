@@ -64,6 +64,15 @@ public class Setting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        TextView About_us=(TextView)findViewById(R.id.about_us);
+        About_us.setClickable(true);
+        About_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Setting.this,About_US.class);
+                startActivity(intent);
+            }
+        });
         picture=(ImageView)findViewById(R.id.picture);
         if(Global_Data.vol_image.trim().equals(""))
         {
@@ -88,22 +97,22 @@ public class Setting extends AppCompatActivity {
                 menuWindow.showAtLocation(Setting.this.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
             }
         });
-        LinearLayout voicesetting=(LinearLayout) findViewById(R.id.voice_setting);
-        voicesetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Setting.this,VoiceSetting.class);
-                startActivity(intent);
-            }
-        });
-        LinearLayout newssetting=(LinearLayout) findViewById(R.id.news_setting);
-        newssetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Setting.this,NewsSetting.class);
-                startActivity(intent);
-            }
-        });
+//        LinearLayout voicesetting=(LinearLayout) findViewById(R.id.voice_setting);
+//        voicesetting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(Setting.this,VoiceSetting.class);
+//                startActivity(intent);
+//            }
+//        });
+//        LinearLayout newssetting=(LinearLayout) findViewById(R.id.news_setting);
+//        newssetting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(Setting.this,NewsSetting.class);
+//                startActivity(intent);
+//            }
+//        });
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar10);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

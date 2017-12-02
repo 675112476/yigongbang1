@@ -20,7 +20,7 @@ android {
     }
 }
 repositories {
-    flatDir{
+    flatDir {
         dirs 'libs'
     }
 }
@@ -49,8 +49,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     implementation 'com.squareup.okhttp:okhttp:2.4.0'
     implementation 'com.google.code.gson:gson:2.8.2'
-    compile name:'SMSSDK-3.0.0',ext:'aar'
-    compile name:'SMSSDKGUI-3.0.0',ext:'aar'
+    compile name: 'SMSSDK-3.0.0', ext: 'aar'
+    compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
     compile files('libs/MobTools-2017.0607.1736.jar')
     compile files('libs/MobCommons-2017.0607.1736.jar')
 }

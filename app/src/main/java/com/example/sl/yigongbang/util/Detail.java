@@ -66,12 +66,12 @@ public class Detail extends AppCompatActivity {
         detail_number=(TextView)findViewById(R.id.detail_number);
         TextView detail_introduction=(TextView)findViewById(R.id.detail_introduction);
         ImageView detail_image = (ImageView) findViewById(R.id.detail_image);
-        detail_name.setText("活动名称:"+fruitName);//这里应该由数据库实现记录和字段的调用 我这里是初始化的示例 此处应该有服务器的数据解析后数据库调用
-        detail_time.setText("活动时间:"+fruitTime);
-        detail_place.setText("活动地点:"+fruitPlace);
+        detail_name.setText("活动名称："+fruitName);//这里应该由数据库实现记录和字段的调用 我这里是初始化的示例 此处应该有服务器的数据解析后数据库调用
+        detail_time.setText("活动时间："+fruitTime);
+        detail_place.setText("活动地点："+fruitPlace);
         Log.e("---活动介绍",fruitIntroduction);
         detail_introduction.setText("活动介绍："+fruitIntroduction);
-        detail_number.setText("活动人数:"+fruitNumber);
+        detail_number.setText("活动人数："+fruitNumber);
         OkHttpClientManager.displayImage(detail_image,Ip.getIp()+"Volunteer_ssh/images/activity/"+ fruitImage);
         setSupportActionBar(toolbar);//用Toolbar替换Actionbar
         ActionBar actionBar=getSupportActionBar();//actionBar的实例 因为有返回控件
@@ -125,15 +125,18 @@ public class Detail extends AppCompatActivity {
             @Override
             public void onResponse(String string) {
                 Log.e("----",string);
-                if(string.equals("true")){
+                String strings[]=string.split(",");
+                Global_Data.act_curnum=Integer.valueOf(strings[1]);
+                if(strings[0].equals("true")){
                     //Toast.makeText(Detail.this,"isjoined！",Toast.LENGTH_SHORT).show();
                     button.setText("取消报名");
                     isJoined=true;
-                }else if(string.equals("false"))
+                }else if(strings[0].equals("false"))
                 {
                     //Toast.makeText(Detail.this,"unjoined！",Toast.LENGTH_SHORT).show();
                     isJoined=false;
                 }
+                detail_number.setText("活动人数："+Global_Data.act_curnum+"/"+Global_Data.act_maxnum);
             }
         });
     }
@@ -153,7 +156,7 @@ public class Detail extends AppCompatActivity {
                     isJoined=true;
                     Toast.makeText(Detail.this,"报名成功！",Toast.LENGTH_SHORT).show();
                     Global_Data.act_curnum++;
-                    detail_number.setText("活动人数:"+Global_Data.act_curnum+"/"+Global_Data.act_maxnum);
+                    detail_number.setText("活动人数："+Global_Data.act_curnum+"/"+Global_Data.act_maxnum);
                 }else if(string.equals("overpeople")){
 //                    button.setText("人数已满");
 //                    button.setClickable(false);
@@ -181,7 +184,7 @@ public class Detail extends AppCompatActivity {
                 if(string.equals("canceljoined")){
                     button.setText("我要报名");
                     Global_Data.act_curnum--;
-                    detail_number.setText("活动人数:"+Global_Data.act_curnum+"/"+Global_Data.act_maxnum);
+                    detail_number.setText("活动人数："+Global_Data.act_curnum+"/"+Global_Data.act_maxnum);
                     isJoined=false;
                     Toast.makeText(Detail.this,"取消报名成功！",Toast.LENGTH_SHORT).show();
                 }else{
@@ -241,7 +244,6 @@ public class Detail extends AppCompatActivity {
                     goodview.show(view1);
                     isCollected=false;
                 }
-
             }
         });
     }
