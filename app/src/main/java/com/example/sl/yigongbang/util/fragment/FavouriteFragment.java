@@ -84,6 +84,8 @@ public class FavouriteFragment extends BaseFragment{
                 intent.putExtra(Detail.FRUIT_NUMBER,data.get(position).getCurPeople()+"/"+data.get(position).getMaxPeople());
                 intent.putExtra(Detail.FRUIT_INRODUCTION,data.get(position).getActIntroduction());
                 intent.putExtra(Detail.FRUIT_IMAGE,data.get(position).getImage());
+                intent.putExtra("curnum",String.valueOf(data.get(position).getCurPeople()));
+                intent.putExtra("maxnum",String.valueOf(data.get(position).getMaxPeople()));
                 mContext.startActivity(intent);
             }
         });
