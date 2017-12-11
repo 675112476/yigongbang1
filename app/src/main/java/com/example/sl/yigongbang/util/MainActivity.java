@@ -8,26 +8,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sl.yigongbang.R;
-import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
-import com.example.sl.yigongbang.util.entity.Global_Data;
-import com.example.sl.yigongbang.util.entity.Ip;
 import com.example.sl.yigongbang.util.entity.Volunteer;
-import com.example.sl.yigongbang.util.fragment.FavouriteFragment;
+import com.example.sl.yigongbang.util.fragment.ActivityFragment;
 import com.example.sl.yigongbang.util.fragment.HomeFragment;
 import com.example.sl.yigongbang.util.fragment.RecordFragment;
 import com.example.sl.yigongbang.util.widget.NoSlidingViewPaper;
-import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     private Volunteer volunteer;
@@ -65,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         final ArrayList<Fragment> fgLists = new ArrayList<>(3);//实现Viewpage上三个碎片的逻辑
         fgLists.add(new HomeFragment());
         fgLists.add(new RecordFragment());
-        fgLists.add(new FavouriteFragment());
+        fgLists.add(new ActivityFragment());
         FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

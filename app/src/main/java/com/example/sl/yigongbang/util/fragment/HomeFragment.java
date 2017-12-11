@@ -39,6 +39,7 @@ import com.example.sl.yigongbang.util.entity.Activity;
 import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
 import com.example.sl.yigongbang.util.entity.Volunteer;
+import com.example.sl.yigongbang.util.my_Favourate;
 import com.squareup.okhttp.Request;
 
 import java.lang.reflect.Field;
@@ -71,25 +72,25 @@ public class HomeFragment extends Fragment {
     }
     protected void getDataFromServer() {
         OkHttpClientManager.getAsyn(Ip.getIp()+"Volunteer_ssh/activity_getAll",
-                new OkHttpClientManager.ResultCallback<List<Activity>>()
+            new OkHttpClientManager.ResultCallback<List<Activity>>()
+            {
+                @Override
+                public void onError(Request request, Exception e)
                 {
-                    @Override
-                    public void onError(Request request, Exception e)
-                    {
-                        Log.e("--------getData",e.toString());
-                        Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+                    Log.e("--------getData",e.toString());
+                    Toast.makeText(mContext,"网络异常，请检查您的网络！",Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onResponse(List<Activity> us)
+                {
+                    ActivityList=us;
+                    for(Activity attribute : ActivityList) {
+                        Log.e("-----Home Activity_name",attribute.getActName());
                     }
-                    @Override
-                    public void onResponse(List<Activity> us)
-                    {
-                        ActivityList=us;
-                        for(Activity attribute : ActivityList) {
-                            Log.e("-----Home Activity_name",attribute.getActName());
-                        }
-                        adapter=new FruitAdapter(ActivityList);
-                        recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
-                    }
-                });
+                    adapter=new FruitAdapter(ActivityList);
+                    recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
+                }
+            });
     }
 
     protected void getAuthority(final FloatingActionButton fab){
@@ -187,6 +188,11 @@ public class HomeFragment extends Fragment {
                         Intent intentpersonal=new Intent(getActivity(),PersonalInfo.class);
                         startActivity(intentpersonal);
                         break;
+                    case R.id.nav_favourite:
+                        Intent intentfavourate=new Intent(getActivity(),my_Favourate.class);
+                        startActivity(intentfavourate);
+                        getActivity().finish();
+                        break;
                     case R.id.nav_setting://点击setting的item时候
                         Intent  intentsetting=new Intent(getActivity(),Setting.class);
                         startActivity(intentsetting);
@@ -219,7 +225,7 @@ public class HomeFragment extends Fragment {
 
         //滚动控件/卡片布局逻辑
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
-        GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),1);//网格布局 有两列
+        GridLayoutManager layoutManager=new GridLayoutManager(getContext(),1);//网格布局 有两列
         recyclerView.setLayoutManager(layoutManager);//网格布局
         mSwipeRefresh=(SwipeRefreshLayout)getActivity().findViewById(R.id.swipe_refresh);
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -229,13 +235,14 @@ public class HomeFragment extends Fragment {
                 mSwipeRefresh.setRefreshing(false);//设置刷新按钮停止转动
             }
         });
+
         // adapter=new FruitAdapter(ActivityList);
         //recyclerView.setAdapter(adapter);//适配器实例与recyclerView控件关联
         convenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
 
 
         //获取本地的图片
-        for (int position = 0; position < 3; position++) {
+        for (int position = 0; position < 4; position++) {
             localImages.add(getResId("ic_test_" + position, R.drawable.class));
         }
 
@@ -250,7 +257,7 @@ public class HomeFragment extends Fragment {
                 //设置指示器是否可见
                 .setPointViewVisible(true)
                 //设置自动切换（同时设置了切换时间间隔）
-                .startTurning(2000);
+                .startTurning(2500);
         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
         //设置指示器的方向（左、中、右）
         //设置点击监听事件

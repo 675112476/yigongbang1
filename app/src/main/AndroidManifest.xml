@@ -60,7 +60,7 @@
             android:theme="@style/BlankActivityTheme" />
         <activity
             android:name=".util.SignUp"
-            android:theme="@style/BlankActivityTheme"></activity>
+            android:theme="@style/BlankActivityTheme" />
         <activity
             android:name=".util.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -79,7 +79,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".util.About_US"></activity>
+        <activity android:name=".util.About_US" />
+        <activity android:name=".util.my_Favourate" />
+        <activity android:name=".util.search"></activity>
     </application>
 
 </manifest>
