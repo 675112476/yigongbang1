@@ -1,11 +1,17 @@
 package com.example.sl.yigongbang.util.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,6 +22,7 @@ import com.example.sl.yigongbang.util.FruitAdapter;
 import com.example.sl.yigongbang.util.Manager.OkHttpClientManager;
 import com.example.sl.yigongbang.util.entity.Activity;
 import com.example.sl.yigongbang.util.entity.Ip;
+import com.example.sl.yigongbang.util.search;
 import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
@@ -80,7 +87,8 @@ public class ActivityFragment extends BaseFragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context=getContext();
-
+        Toolbar toolbar = (Toolbar)view. findViewById(R.id.toolbar1);//ToolBar实例化 逻辑化
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);//通过setSupportActionBar方法引用ToolBar实例
 
         fav_listView =(ListView) view.findViewById(R.id.activity_list);
         getDataFromServer();
@@ -93,4 +101,6 @@ public class ActivityFragment extends BaseFragment{
             }
         });
     }
+
+
 }
