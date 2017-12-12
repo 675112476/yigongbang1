@@ -39,6 +39,7 @@ import com.example.sl.yigongbang.util.entity.Activity;
 import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
 import com.example.sl.yigongbang.util.entity.Volunteer;
+import com.example.sl.yigongbang.util.my_Favourate;
 import com.squareup.okhttp.Request;
 
 import java.lang.reflect.Field;
@@ -192,6 +193,10 @@ public class HomeFragment extends Fragment {
                         Intent  intentsetting=new Intent(getActivity(),Setting.class);
                         startActivity(intentsetting);
                         getActivity().finish();
+                        break;
+                    case R.id.nav_favourite:
+                        Intent intentfavourate=new Intent(getActivity(),my_Favourate.class);
+                        startActivity(intentfavourate);
                         break;
                 }
                 return true;
