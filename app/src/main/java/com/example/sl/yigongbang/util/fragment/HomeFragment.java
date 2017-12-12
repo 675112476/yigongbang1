@@ -176,7 +176,6 @@ public class HomeFragment extends Fragment {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);//为了显示导航按钮图标 这里要改一下了
         }
         headerView = navView.getHeaderView(0);

@@ -40,11 +40,11 @@
             android:id="@+id/swipe_refresh4"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ListView
-                android:id="@+id/activity_list"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/act_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            </ListView>
+            </android.support.v7.widget.RecyclerView>
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 </LinearLayout>
