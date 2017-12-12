@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,6 +32,9 @@ public class my_Favourate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my__favourate);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar3);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         listview=(ListView)findViewById(R.id.List_view);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -59,6 +63,19 @@ public class my_Favourate extends AppCompatActivity {
             }
         });
         getDataFromServer();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                Intent intent=new Intent(my_Favourate.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            default:
+                break;
+        }
+        return  true;
     }
 
     protected void getDataFromServer() {
