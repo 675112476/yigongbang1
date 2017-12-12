@@ -178,6 +178,12 @@ public class HomeFragment extends Fragment {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);//为了显示导航按钮图标 这里要改一下了
         }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.START);//点击打开右滑动菜单
+            }
+        });
         headerView = navView.getHeaderView(0);
         navView.setCheckedItem(R.id.nav_personal);//call菜单默认选中， 这里我设置成了个人信息
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){//监听滑动菜单控件 在这里给Item添加逻辑
@@ -264,16 +270,16 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.toolbar, menu);//引入toolbar标题栏的实例
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case android.R.id.home://当点击标题栏中的id名为home的按钮时
-                mDrawerLayout.openDrawer(GravityCompat.START);//点击打开右滑动菜单
-                break;
-            default:
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch(item.getItemId()){
+//            case android.R.id.home://当点击标题栏中的id名为home的按钮时
+//                mDrawerLayout.openDrawer(GravityCompat.START);//点击打开右滑动菜单
+//                break;
+//            default:
+//        }
+//        return true;
+//    }
     public void onItemClick(int position) {
         Toast.makeText(getActivity(), "position:" + position, Toast.LENGTH_SHORT).show();
     }
