@@ -26,7 +26,14 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的收藏:"
+            android:layout_margin="8dp"
+            android:textSize="18dp"/>
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh3"
             android:layout_width="match_parent"
