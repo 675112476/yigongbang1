@@ -47,7 +47,20 @@
                 </LinearLayout>
 
                 <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
+                <LinearLayout
+                    style="@style/leba_bg_bottom_layout">
 
+                    <TextView
+                        android:id="@+id/update"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12.0dip"
+                        android:layout_weight="1.0"
+                        android:text="检测更新"
+                        android:textColor="#ff333333"
+                        android:textSize="16.0dip" />
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dip" />
+                </LinearLayout>
                 <!-- 关于 -->
                 <LinearLayout
                     style="@style/leba_bg_bottom_layout">

@@ -4,8 +4,10 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -42,6 +44,7 @@ import com.example.sl.yigongbang.util.Manager.SystemUtils;
 import com.example.sl.yigongbang.util.entity.Global_Data;
 import com.example.sl.yigongbang.util.entity.Ip;
 import com.example.sl.yigongbang.util.fragment.HomeFragment;
+import com.maning.updatelibrary.InstallUtils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 
@@ -63,10 +66,17 @@ public class Setting extends AppCompatActivity {
     private Uri imageUri;
     public File outputImage;
     private Global_Data data;
+    Integer code;//版本号，用来比较
+    String version;
+    public static final String APK_URL = "http://www.yigongbang.xin:8080/Volunteer_ssh/download";
+    public static final String APK_NAME = "update";
+    private static final String TAG = "InstallUtils";
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        context=this;
         TextView About_us=(TextView)findViewById(R.id.about_us);
         About_us.setClickable(true);
         About_us.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +110,38 @@ public class Setting extends AppCompatActivity {
                 menuWindow.showAtLocation(Setting.this.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
             }
         });
+        TextView update=(TextView)findViewById(R.id.update);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    PackageManager pm = Setting.this.getPackageManager();//context为当前Activity上下文
+                    PackageInfo pi = pm.getPackageInfo(Setting.this.getPackageName(), 0);
+                    code=pi.versionCode;
+                    version = pi.versionName;
+                    Log.e(TAG, "onClick: code"+code+"  version"+version);
+                    OkHttpClientManager.getAsyn(Ip.getIp() + "Volunteer_ssh/version", new OkHttpClientManager.ResultCallback<Integer>() {
+                        @Override
+                        public void onError(Request request, Exception e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Integer integer) {
+                            Log.e(TAG,"check_update"+integer);
+                            if(code==integer){
+                                Toast.makeText(Setting.this,"版本号："+version+"\n"+"已经是最新版本不需要更新",Toast.LENGTH_LONG).show();
+                            }else{
+                                update();
+                            }
+                        }
+                    });
+                }catch (Exception e){
+                    Log.e("Setting:","错误："+e.toString());
+                }
+
+            }
+        });
 //        LinearLayout voicesetting=(LinearLayout) findViewById(R.id.voice_setting);
 //        voicesetting.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -120,6 +162,60 @@ public class Setting extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+    }
+    public void update(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("提示")
+                .setMessage("确定要更新吗？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getUpdate();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.create().show();
+    }
+    public void getUpdate(){
+        new InstallUtils(context, APK_URL, APK_NAME, new InstallUtils.DownloadCallBack() {
+            @Override
+            public void onStart() {
+                Log.i(TAG, "InstallUtils---onStart");
+                Toast.makeText(Setting.this,"已经开始下载，请耐心等待,下载完成会提醒安装",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onComplete(String path) {
+                Log.i(TAG, "InstallUtils---onComplete:" + path);
+                InstallUtils.installAPK(context, path, getPackageName() + ".fileProvider", new InstallUtils.InstallCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(context, "正在安装程序", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        Toast.makeText(context,"安装失败:" + e.toString(),Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onLoading(long total, long current) {
+                Log.i(TAG, "InstallUtils----onLoading:-----total:" + total + ",current:" + current);
+
+            }
+
+            @Override
+            public void onFail(Exception e) {
+                Log.i(TAG, "InstallUtils---onFail:" + e.getMessage());
+                Toast.makeText(context,"下载失败:" + e.toString(),Toast.LENGTH_LONG).show();
+            }
+
+        }).downloadAPK();
     }
     //为弹出窗口实现监听类
     private View.OnClickListener itemsOnClick = new View.OnClickListener(){
